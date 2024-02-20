@@ -1,0 +1,29 @@
+.sec1 {
+  position: relative;
+}
+
+.editMyProfile {
+  position: absolute;
+  right: 1rem;
+  bottom: 0rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: 0;
+  text-decoration: none;
+  text-align: center;
+}
+
+.Tabs {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start; 
+  align-items: center;
+  width: calc(100% - 2rem); 
+  padding: 0.5rem 1rem;
+  bottom: 0rem;
+}
