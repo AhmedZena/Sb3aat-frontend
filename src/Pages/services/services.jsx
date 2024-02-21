@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./services.css"; // Assuming you have a CSS file for additional styling
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -14,7 +13,7 @@ import Button from "@mui/material/Button";
 
 export default function Service() {
   return (
-    <div className="container content-center center d-flex row">
+    <div className="container m-0 p-0 content-center center d-flex row">
       <div className="sideSec col-xl-3 bg-zinc-200">
         <div className="mt-5">
           <h3 className="text-gray-400"> Programming / Web Development</h3>
