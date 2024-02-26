@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar/navbar.jsx";
 import Login from "./Pages/Auth/Login/Login.jsx";
 import Register from "./Pages/Auth/Register/Register.jsx";
 import Categories from "./Pages/Categories/categories.jsx";
+import Home from "./Pages/Home/Home.jsx";
 function App() {
   return (
     <>
@@ -19,7 +20,8 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Services />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/services" element={<Services />}></Route>
             <Route path="/service" element={<Service />}></Route>
             <Route path="/profile" element={<Profile />}>
               <Route path="myServices" element={<Myservices />} />
