@@ -1,11 +1,11 @@
 import Button from "react-bootstrap/Button";
 
 import "./profile.css";
-import { NavLink ,Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function Profile() {
   return (
-    <div className="container-fluid bg-slate-300 items-center ">
+    <div className="container-fluid bg-zink-200 items-center ">
       <div className="container sec1 bg-gray-100 py-5 rounded-lg">
         <div className="text-center">
           <img
@@ -14,9 +14,12 @@ export default function Profile() {
             className="w-24 h-24 rounded-full mx-auto mb-4"
           />
           <h1 className="text-xl font-bold">Mahmoud Saad</h1>
-          <h3 className="text-gray-600">New user</h3>
+          <h3 className="text-gray-800 font-bold">New user</h3>
           <div className="mt-4">
-            <Button className="bg-green-600 editMyProfile m-3" variant="success">
+            <Button
+              className="bg-green-600 editMyProfile m-3"
+              variant="success"
+            >
               Edit my Profile
             </Button>
           </div>
@@ -25,15 +28,22 @@ export default function Profile() {
           <ul className="list-reset flex border-b rtl:">
             <li className="-mb-px mr-1">
               <NavLink
+                to="/profile"
                 className="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-dark font-semibold"
-                to="/profile/personal"
+                style={{ borderBottom: "2px solid transparent" }}
+                activeStyle={{ borderBottom: "none" }}
               >
                 Personal Profile
               </NavLink>
             </li>
             <li className="mr-1">
-              <NavLink to="/profile/myServices" className="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold" href="#">
-                My Serivces
+              <NavLink
+                to="/profile/myServices"
+                className="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
+                style={{ borderBottom: "2px solid transparent" }}
+                activeStyle={{ borderBottom: "none" }}
+              >
+                My Services
               </NavLink>
             </li>
           </ul>
@@ -41,7 +51,7 @@ export default function Profile() {
       </div>
       <div className="container py-5">
         <div className="row">
-          <Outlet/>
+          <Outlet />
         </div>
       </div>
     </div>

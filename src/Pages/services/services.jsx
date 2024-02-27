@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -9,11 +9,23 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Button from "@mui/material/Button";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Service() {
+  const [arr, setArr] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://sb3aat.onrender.com/api/services")
+      .then((ser) => {
+        setArr(ser.data);
+      })
+      .catch((e) => {});
+  }, []);
+
   return (
-    <div className="container m-0 p-0 content-center center d-flex row">
+    <div className="container content-center center d-flex row">
       <div className="sideSec col-xl-3 bg-zinc-200">
         <div className="mt-5">
           <h3 className="text-gray-400"> Programming / Web Development</h3>
@@ -70,47 +82,49 @@ export default function Service() {
           </Dropdown>
         </div>
 
-        <Row xs={1} md={2} lg={4} className="g-4">
+        <Row xs={1} md={2} lg={3} className="g-4">
           {/* Assuming you'll loop through an array of services */}
-          {[1, 2, 3, 4, 5, 6, 7].map((index) => (
-            <Col key={index}>
-              <Card className="max-w-xs max-h-100 border-none bg-inherit">
-                <Card.Img
-                  variant="top"
-                  src="https://khamsat.hsoubcdn.com/images/services/858931/958f63c89c0b6509c32c49c5c67e8e6a.jpg"
-                  className="h-64 w-full object-cover" // Increase the height here
-                />
-                <Card.Body className="h-40">
-                  <a href="#" className="text-blue-900 font-bold">
-                    Web Development
-                  </a>
-                  <Card.Text className="text-sm text-black">
-                    Category/sub Category
-                  </Card.Text>
-                  <Card.Text className="text-sm text-gray-700">
-                    Lorem ipsum dolor sit amet.
-                  </Card.Text>
-                  <div className="flex items-center">
-                    <span className="text-xl text-yellow-500"> (7)</span>
-                    {[...Array(5)].map((star, i) => (
-                      <svg
-                        key={i}
-                        className="h-6 w-6 text-yellow-500 fill-current"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        <path d="M0 0h24v24H0z" fill="none" />
-                      </svg>
-                    ))}
-                  </div>
-                  <span className="text-yellow-500 text-2xl ml-1">
-                    Start From 7$
-                  </span>
-                </Card.Body>
-              </Card>
-            </Col>
+          {arr.map((item, index) => (
+            <Link to={`/services/${item._id}`}>
+              <Col key={index}>
+                <Card className="max-w-xs max-h-300 border-none bg-white shadow-xl">
+                  <Card.Img
+                    variant="top"
+                    src={item.serviceImgSrc}
+                    className="h-80 w-full object-cover"
+                  />
+                  <Card.Body className="h-60">
+                    <a href="#" className="text-blue-900 font-bold">
+                      {item.title}
+                    </a>
+                    <Card.Text className="text-sm text-black">
+                      Category/sub Category
+                    </Card.Text>
+                    <Card.Text className="text-xl text-gray-700">
+                      {item.description}
+                    </Card.Text>
+                    <div className="flex items-center">
+                      <span className="text-xl text-yellow-500"> (7)</span>
+                      {[...Array(5)].map((star, i) => (
+                        <svg
+                          key={i}
+                          className="h-6 w-6 text-yellow-500 fill-current"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M0 0h24v24H0z" fill="none" />
+                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                          <path d="M0 0h24v24H0z" fill="none" />
+                        </svg>
+                      ))}
+                    </div>
+                    <span className="text-yellow-500 text-2xl ml-1">
+                      Start From {item.price}$
+                    </span>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Link>
           ))}
         </Row>
 

@@ -1,42 +1,42 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Footer } from "./components/Footer/footer.jsx";
-import Profile from "./Pages/Profile/profile.jsx";
-import Services from "./Pages/Services/services";
+import Footer from "./components/footer/footer.jsx";
+import Profile from "./Pages/profile/profile.jsx";
+import Services from "./Pages/services/services.jsx";
 import Service from "./Pages/Service/service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Myservices from "./Pages/Profile/myService";
-import PersonalProfile from "./Pages/Profile/personalProfile";
-import SubCategory from "./Pages/SubCateogry/subCategory.jsx";
-import Navbar from "./components/Navbar/navbar.jsx";
+import Myservices from "./Pages/profile/myService";
+import PersonalProfile from "./Pages/profile/personalProfile";
+import SubCategory from "./Pages/subCateogry/subCategory.jsx";
+import Navbar from "./components/navbar/navbar.jsx";
 import Login from "./Pages/Auth/Login/Login.jsx";
 import Register from "./Pages/Auth/Register/Register.jsx";
 import Categories from "./Pages/Categories/categories.jsx";
 import Home from "./Pages/Home/Home.jsx";
+import Notifications from "./Pages/notfications/notficationsPage.jsx";
+import About from "./Pages/About US/About Us.jsx";
 function App() {
   return (
-    <>
-      <div className="container">
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/services" element={<Services />}></Route>
-            <Route path="/service" element={<Service />}></Route>
-            <Route path="/profile" element={<Profile />}>
-              <Route path="myServices" element={<Myservices />} />
-              <Route path="personal" element={<PersonalProfile />} />
-            </Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
-            <Route path="/subCategory" element={<SubCategory />}></Route>
-            <Route path="/categories" element={<Categories />}></Route>
-          </Routes>
-          {/* <SubCategory /> */}
-          <Footer />
-        </BrowserRouter>
-      </div>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/services" element={<Services />}></Route>
+        <Route path="/service" element={<Service />}></Route>
+        <Route path="/profile" element={<Profile />}>
+          <Route index element={<PersonalProfile />} />
+          <Route path="myServices" element={<Myservices />} />
+        </Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/subCategory" element={<SubCategory />}></Route>
+        <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/notifications" element={<Notifications />}></Route>
+        <Route path="/about" element={<About />}></Route>
+      </Routes>
+      {/* <SubCategory /> */}
+      <Footer />
+    </BrowserRouter>
   );
 }
 
