@@ -54,6 +54,18 @@ export default function Navbar() {
               Services
             </NavLink>
             <NavLink
+              to="/courses"
+              className={({ isActive }) =>
+                `mr-5 ${
+                  isActive
+                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
+                    : "text-first "
+                }`
+              }
+            >
+              courses
+            </NavLink>
+            <NavLink
               to="/service"
               className={({ isActive }) =>
                 `mr-5 ${
@@ -78,6 +90,31 @@ export default function Navbar() {
             >
               Notifications
             </NavLink>
+            <NavLink
+              to="/message"
+              className={({ isActive }) =>
+                `mr-5 ${
+                  isActive
+                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
+                    : "text-first "
+                }`
+              }
+            >
+              message
+            </NavLink>
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                `mr-5 ${
+                  isActive
+                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
+                    : "text-first "
+                }`
+              }
+            >
+              Cart
+            </NavLink>
+
             <NavLink
               to="/about"
               className={({ isActive }) =>

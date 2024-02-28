@@ -15,6 +15,11 @@ import Categories from "./Pages/Categories/categories.jsx";
 import Home from "./Pages/Home/Home.jsx";
 import Notifications from "./Pages/notfications/notficationsPage.jsx";
 import About from "./Pages/About US/About Us.jsx";
+import Message from "./Pages/Message/Message.jsx";
+import Cart from "./Pages/Cart/Cart.jsx";
+import Payment from "./Pages/Payment/Payment.jsx";
+import Paypal from "./Pages/Payment/Paypal.jsx";
+import Courses from "./Pages/courses/courses.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -31,8 +36,13 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/subCategory" element={<SubCategory />}></Route>
         <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/courses" element={<Courses />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route path="/message" element={<Message />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pay" element={<Payment />} />
+        <Route path="/paypal" element={<Paypal />} />
       </Routes>
       {/* <SubCategory /> */}
       <Footer />
