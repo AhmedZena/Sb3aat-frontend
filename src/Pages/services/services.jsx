@@ -25,7 +25,7 @@ export default function Service() {
   }, []);
 
   return (
-    <div className="container content-center center d-flex row">
+    <div className=" content-center center d-flex row">
       <div className="sideSec col-xl-3 bg-zinc-200">
         <div className="mt-5">
           <h3 className="text-gray-400"> Programming / Web Development</h3>
@@ -82,7 +82,7 @@ export default function Service() {
           </Dropdown>
         </div>
 
-        <Row xs={1} md={2} lg={3} className="g-4">
+        <Row xs={1} md={2} lg={4} className="g-4">
           {/* Assuming you'll loop through an array of services */}
           {arr.map((item, index) => (
             <Link to={`/services/${item._id}`}>

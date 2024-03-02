@@ -3,7 +3,7 @@ import "./App.css";
 import Footer from "./components/footer/footer.jsx";
 import Profile from "./Pages/profile/profile.jsx";
 import Services from "./Pages/services/services.jsx";
-import Service from "./Pages/Service/service";
+import Service from "./Pages/service/service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Myservices from "./Pages/profile/myService";
 import PersonalProfile from "./Pages/profile/personalProfile";
@@ -36,7 +36,12 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/subCategory" element={<SubCategory />}></Route>
         <Route path="/categories" element={<Categories />}></Route>
-        <Route path="/courses" element={<Courses />}></Route>
+        <Route path="/courses" element={<Courses />}>
+          <Route index element={<Courses />} />
+          <Route path=":id" element={<Courses />} />
+          
+        </Route>
+        
         <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/message" element={<Message />} />
