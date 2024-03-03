@@ -12,7 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function Service() {
+export default function Services() {
   const [arr, setArr] = useState([]);
 
   useEffect(() => {

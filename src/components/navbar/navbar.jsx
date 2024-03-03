@@ -29,42 +29,6 @@ export default function Navbar() {
             >
               Categories
             </NavLink>
-            <NavLink
-              to="/subCategory"
-              className={({ isActive }) =>
-                `mr-5 ${
-                  isActive
-                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
-                }`
-              }
-            >
-              subCategory
-            </NavLink>
-            <NavLink
-              to="/services"
-              className={({ isActive }) =>
-                `mr-5 ${
-                  isActive
-                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
-                }`
-              }
-            >
-              Services
-            </NavLink>
-            <NavLink
-              to="/courses"
-              className={({ isActive }) =>
-                `mr-5 ${
-                  isActive
-                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
-                }`
-              }
-            >
-              courses
-            </NavLink>
 
             <NavLink
               to="/service"
@@ -127,6 +91,18 @@ export default function Navbar() {
               }
             >
               About us
+            </NavLink>
+            <NavLink
+              to="/createService"
+              className={({ isActive }) =>
+                `mr-5 ${
+                  isActive
+                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
+                    : "text-first "
+                }`
+              }
+            >
+              Create Service
             </NavLink>
           </div>
           <div className="flex items-center">

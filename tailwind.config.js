@@ -9,6 +9,14 @@ export default {
         second: "#FFF3CF",
         third: "#C9D7DD",
         fourth: "#637A9F",
+
+        palete: {
+          first: "#ccff8c",
+          second: "#81de76",
+          third: "#3a55b4",
+          fourth: "#6caddf",
+          fifth: "#8cd9ff",
+        },
       },
     },
   },

@@ -3,7 +3,7 @@ import "./App.css";
 import Footer from "./components/footer/footer.jsx";
 import Profile from "./Pages/profile/profile.jsx";
 import Services from "./Pages/services/services.jsx";
-import Service from "./Pages/service/service";
+import Service from "./Pages/Service/service.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Myservices from "./Pages/profile/myService";
 import PersonalProfile from "./Pages/profile/personalProfile";
@@ -20,6 +20,7 @@ import Cart from "./Pages/Cart/Cart.jsx";
 import Payment from "./Pages/Payment/Payment.jsx";
 import Paypal from "./Pages/Payment/Paypal.jsx";
 import Courses from "./Pages/courses/courses.jsx";
+import CreateService from "./Pages/Service/CreateService.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -39,9 +40,8 @@ function App() {
         <Route path="/courses" element={<Courses />}>
           <Route index element={<Courses />} />
           <Route path=":id" element={<Courses />} />
-          
         </Route>
-        
+        <Route path="/createService" element={<CreateService />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/message" element={<Message />} />

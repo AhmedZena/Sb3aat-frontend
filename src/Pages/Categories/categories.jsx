@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Col, Row, Button } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 function Categories() {
   console.log("categories");
   return (
@@ -19,9 +19,15 @@ function Categories() {
                   With supporting text below as a natural lead-in to additional
                   content.
                 </Card.Text>
-                <Button variant="outline-success" className="w-50 mt-3">
+                {/* <Button variant="outline-success" className="w-50 mt-3">
                   Go
-                </Button>{" "}
+                </Button>{" "} */}
+                <Link
+                  to="/subCategory"
+                  className="btn btn-outline-success w-50 mt-3"
+                >
+                  Go
+                </Link>
               </Card.Body>
             </Card>
           </Col>
