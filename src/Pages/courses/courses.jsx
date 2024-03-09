@@ -105,6 +105,7 @@ export default function Courses() {
                   </div>
                   <meter value="50" min="0" max="100" className="mt-3 w-full "></meter>
                   <div className="text-xl m-10">
+                    {/* hello */}
                   <Link to={"/course"} >Start Course</Link>
                   </div>                </Card.Body>
               </Card>
