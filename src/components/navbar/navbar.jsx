@@ -104,6 +104,18 @@ export default function Navbar() {
             >
               Create Service
             </NavLink>
+            <NavLink
+              to="/CreateCourse"
+              className={({ isActive }) =>
+                `mr-5 ${
+                  isActive
+                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
+                    : "text-first "
+                }`
+              }
+            >
+              CreateCourse{" "}
+            </NavLink>
           </div>
           <div className="flex items-center">
             {/* <NavLink to="/profile" className="text-white mr-5">

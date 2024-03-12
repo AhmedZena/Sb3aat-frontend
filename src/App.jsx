@@ -22,6 +22,7 @@ import Paypal from "./Pages/Payment/Paypal.jsx";
 import Courses from "./Pages/courses/courses.jsx";
 import CreateService from "./Pages/service/CreateService.jsx";
 import Course from "./Pages/courses/Course.jsx";
+import {CreateCourse}  from "./Pages/courses/CreateCourse.jsx";
 
 function App() {
   return (
@@ -43,8 +44,9 @@ function App() {
           <Route index element={<Courses />} />
           <Route path=":id" element={<Courses />} />
         </Route>
-        <Route path="/course" element={<Course />}/>
+        <Route path="/course" element={<Course />} />
         <Route path="/createService" element={<CreateService />}></Route>
+        <Route path="/createCourse" element={<CreateCourse />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/message" element={<Message />} />
