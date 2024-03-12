@@ -10,14 +10,16 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useParams } from "react-router-dom";
 
 export default function Services() {
   const [arr, setArr] = useState([]);
 
+  const { categoryId } = useParams();
+
   useEffect(() => {
     axios
-      .get("https://sb3aat.onrender.com/api/services")
+      .get(`https://sb3aat.onrender.com/api/services/category/${ categoryId }`)
       .then((ser) => {
         setArr(ser.data);
       })
@@ -25,7 +27,7 @@ export default function Services() {
   }, []);
 
   return (
-    <div className=" content-center center d-flex row">
+    <div className="mx-auto center d-flex row">
       <div className="sideSec col-xl-3 bg-zinc-200">
         <div className="mt-5">
           <h3 className="text-gray-400"> Programming / Web Development</h3>
@@ -35,25 +37,25 @@ export default function Services() {
           <h2>Search</h2>
           <input
             type="search"
-            className="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none mt-2"
+            className="w-full px-4 py-1 mt-2 text-gray-800 rounded-full focus:outline-none"
           />
         </div>
         <div className="mt-3">
           <h2>Parts</h2>
-          <ul className="list-unstyled mt-4">
-            <li className="hover:text-green-500 mt-2 active:text-green-500">
+          <ul className="mt-4 list-unstyled">
+            <li className="mt-2 hover:text-green-500 active:text-green-500">
               <a href="#">Create Web Site</a>
               <Badge bg="dark" className="ml-10">
                 232
               </Badge>
             </li>
-            <li className="hover:text-green-500 mt-2">
+            <li className="mt-2 hover:text-green-500">
               <a href="#">Edit Web Site</a>
               <Badge bg="dark" className="ml-10">
                 56
               </Badge>
             </li>
-            <li className="hover:text-green-500 mt-2">
+            <li className="mt-2 hover:text-green-500">
               <a href="#">Handling Errors</a>
               <Badge bg="dark" className="ml-10">
                 80
@@ -87,14 +89,14 @@ export default function Services() {
           {arr.map((item, index) => (
             <Link to={`/services/${item._id}`}>
               <Col key={index}>
-                <Card className="max-w-xs max-h-300 border-none bg-white shadow-xl">
+                <Card className="max-w-xs bg-white border-none shadow-xl max-h-300">
                   <Card.Img
                     variant="top"
                     src={item.serviceImgSrc}
-                    className="h-80 w-full object-cover"
+                    className="object-cover w-full h-80"
                   />
                   <Card.Body className="h-60">
-                    <a href="#" className="text-blue-900 font-bold">
+                    <a href="#" className="font-bold text-blue-900">
                       {item.title}
                     </a>
                     <Card.Text className="text-sm text-black">
@@ -108,7 +110,7 @@ export default function Services() {
                       {[...Array(5)].map((star, i) => (
                         <svg
                           key={i}
-                          className="h-6 w-6 text-yellow-500 fill-current"
+                          className="w-6 h-6 text-yellow-500 fill-current"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                         >
@@ -118,7 +120,7 @@ export default function Services() {
                         </svg>
                       ))}
                     </div>
-                    <span className="text-yellow-500 text-2xl ml-1">
+                    <span className="ml-1 text-2xl text-yellow-500">
                       Start From {item.price}$
                     </span>
                   </Card.Body>
@@ -128,12 +130,12 @@ export default function Services() {
           ))}
         </Row>
 
-        <div className="Description mb-3 text-2xl">
-          <h2 className="text-3xl font-mono font-bold mb-3 mt-5 text-center">
+        <div className="mb-3 text-2xl Description">
+          <h2 className="mt-5 mb-3 font-mono text-3xl font-bold text-center">
             Hire the best developers to create an integrated website that
             enhances the success of your business
           </h2>
-          <p className="text-gray-700 text-center">
+          <p className="text-center text-gray-700">
             If you want to create a website for your commercial project, Khamsat
             is the most appropriate destination that helps you obtain the
             services of professional developers to create an integrated,
@@ -141,7 +143,7 @@ export default function Services() {
             programming background.
           </p>
 
-          <div className=" mt-3">
+          <div className="mt-3 ">
             <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}

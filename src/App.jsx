@@ -30,7 +30,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/services" element={<Services />}></Route>
+        <Route path="/services/:categoryId" element={<Services />}></Route>
         <Route path="/service" element={<Service />}></Route>
         <Route path="/profile" element={<Profile />}>
           <Route index element={<PersonalProfile />} />
@@ -38,9 +38,9 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/subCategory" element={<SubCategory />}></Route>
+        <Route path="/subCategories/:categoryId" element={<SubCategory />}></Route>
         <Route path="/categories" element={<Categories />}></Route>
-        <Route path="/courses" element={<Courses />}>
+        <Route path="/courses/:categoryId" element={<Courses />}>
           <Route index element={<Courses />} />
           <Route path=":id" element={<Courses />} />
         </Route>
