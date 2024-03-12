@@ -1,71 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Import Axios for making HTTP requests
+
+
 export default function Cart() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    // Fetch orders data when the component mounts
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(`${process.env.baseUrl}/orders/client/65b41665e977b0dc489a7c82`);
+      if (response.data){
+        setOrders(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
+
   return (
     <div className="container">
-      <div className="cartHeading  bg-[#f5f5f5] flex flex-col p-10 pl-1 pt-1 m-60 mb-20 justify-between items-center">
+      <div className="cartHeading bg-[#f5f5f5] flex flex-col p-10 pl-1 pt-1 m-60 mb-20 justify-between items-center">
+        {/* Render your orders data */}
         <table className="w-full m-auto table-auto">
-          <tr className=" h-40 text-center font-bold">
-            <th className=" ">Services</th>
-            <th className=" ">Price</th>
-            <th className=" ">Quantity</th>
-            <th className=" ">Subtotal</th>
-          </tr>
-
-          <tr className=" h-40">
-            <td className=" h-40 flex justify-center">
-              <div className="">
-                <img
-                  src="https://s3-us-west-1.amazonaws.com/angular-university/course-images/angular-pwa-course.png"
-                  className="w-40 h-30 col-span-2"
-                />
-                <p className="col-span-2">Angular Course</p>
-              </div>
-            </td>
-            <td className=" h-40 mt-10 ml-5 gap-3">1500$</td>
-            <td className=" h-40 m-30 gap-3">
-              <div className="inline-block align-middle">
-                <div className=" ml-40">
-                  <button className=" w-8 h-8 border border-black/40 ">
-                    +
-                  </button>
-                  <div className="inline-block align-middle m-3">1</div>
-                  <button className=" w-8 h-8 border border-black/40">-</button>
-                </div>
-              </div>
-            </td>
-            <td className="">1500$</td>
-          </tr>
-
-          <tr className="">
-            <td className="h-40 flex justify-center">
-              <div>
-                <img
-                  src="https://d3f1iyfxxz8i1e.cloudfront.net/courses/course_image/662d3d0e3373.jpg"
-                  className="w-40 h-30 col-span-2"
-                />
-                <p>React Course</p>
-              </div>
-            </td>
-            <td className="">1200$</td>
-
-            <td className="">
-              <div className=" inline-block align-middle">
-                <div className="ml-40">
-                  <button className="w-8 h-8 border border-black/40 ">+</button>
-                  <div className=" inline-block align-middle m-3 ">3</div>
-                  <button className="w-8 h-8 border border-black/40">-</button>
-                </div>
-              </div>
-            </td>
-            <td className="">3600$</td>
-          </tr>
+          <thead>
+            <tr className="h-40 text-center font-bold">
+              <th>Services</th> 
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>TotalPrice</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => (
+              <tr key={index} className="h-40">
+                <td>{order.serviceOrCourseId}</td>
+                <td>{order.totalPrice}</td>
+                <td>{order.numsOrdered}</td>
+                <td>{order.isPaid}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
+
         <div className="flex justify-center">
-          <Link
-            to="/pay"
-            className="bg-green-500 text-white px-4 py-2 rounded-md"
-          >
+          <Link to="/pay" className="bg-green-500 text-white px-4 py-2 rounded-md">
             Pay
           </Link>
         </div>
