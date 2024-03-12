@@ -9,9 +9,9 @@ import {
   OutlinedInput,
   Select,
 } from "@mui/material";
-import { Typography, List, ListItem, ListItemText, Paper } from "@mui/material";
-import { DataGridPro } from "@mui/x-data-grid-pro";
-import { useDemoData } from "@mui/x-data-grid-generator";
+// import { Typography, List, ListItem, ListItemText, Paper } from "@mui/material";
+// import { DataGridPro } from "@mui/x-data-grid-pro";
+// import { useDemoData } from "@mui/x-data-grid-generator";
 import DragsComp from "./DragsComp";
 
 function updateRowPosition(initialIndex, newIndex, rows) {
