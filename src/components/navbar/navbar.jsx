@@ -10,7 +10,7 @@ import { Fragment } from "react";
 export default function Navbar() {
   return (
     // <div>Navbar</div>
-    <div className="bg-slate-600 ">
+    <div className="bg-slate-800">
       <div className="container mx-auto">
         <nav className="flex items-center justify-between p-3">
           <div className="flex items-center justify-evenly font-bold mr-32">

@@ -8,7 +8,7 @@ export default {
         first: "#E8C872",
         second: "#FFF3CF",
         third: "#C9D7DD",
-        fourth: "#475569",
+        fourth: "#1E293B",
 
         palete: {
           first: "#ccff8c",
