@@ -1,17 +1,19 @@
 import axios from "axios";
-import axiosInstance from "../../../axiousConfig/instance.js"
+import axiosInstance from "../../../axiousConfig/instance.js";
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import {changeRole}from "../../../Store/slices/role.js"
+import { useDispatch } from "react-redux";
+import { changeRole } from "../../../Store/slices/role.js";
+import { changeUser } from "../../../Store/slices/user.js";
+import { useNavigate } from "react-router";
 const colors = {
   primary: "#060606",
   background: "#f5f5f5",
   disbaled: "#D9D9D9",
 };
 export default function Login() {
-  const dispatch =useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-   
     email: "",
     password: "",
   });
@@ -24,30 +26,32 @@ export default function Login() {
     e.preventDefault();
     console.log(formData);
     try {
-    
-      const response = await axios.post(`${process.env.baseUrl}/auth/login`, formData);
+      const response = await axios.post(
+        `${process.env.baseUrl}/auth/login`,
+        formData
+      );
       console.log(response.data.token);
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem("token", response.data.token);
       // const response2 = await axiosInstance.get(`/auth/profile`);
       // console.log(response2.data);
 
-      axiosInstance.get('/auth/profile')
-      .then(response => {
-        dispatch(changeRole(response.data.role))
-        console.log(response.data);
-
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-    
-      })
+      axiosInstance
+        .get("/auth/profile")
+        .then((response) => {
+          dispatch(changeRole(response.data.role));
+          dispatch(changeUser(response.data));
+          console.log(response.data);
+          //   redirect to the profile
+          navigate("/profile");
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
       // Redirect the user after successful registration, for example to the login page
     } catch (error) {
       console.error("login failed:", error);
     }
   };
-
-
 
   return (
     <div className="w-full min-h-screen flex items-start p-4 ">
@@ -106,8 +110,10 @@ export default function Login() {
           </div>
 
           <div className="w-full flex flex-col my-4">
-            <button className="w-full text-white my-2 font-semibold bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"   onClick={handleSignUp}>
-              
+            <button
+              className="w-full text-white my-2 font-semibold bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
+              onClick={handleSignUp}
+            >
               Login
             </button>
 
@@ -144,15 +150,3 @@ export default function Login() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
