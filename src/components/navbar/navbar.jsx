@@ -10,12 +10,12 @@ import { Fragment } from "react";
 export default function Navbar() {
   return (
     // <div>Navbar</div>
-    <div className="bg-fourth ">
+    <div className="bg-slate-800">
       <div className="container mx-auto">
         <nav className="flex items-center justify-between p-3">
-          <div className="flex items-center justify-evenly font-bold">
-            <NavLink to="/" className="text-third text-2xl font-bold mr-5 ">
-              <span className="text-first  text-3xl">S</span>b3at
+          <div className="flex items-center justify-evenly font-bold mr-32">
+            <NavLink to="/" className="text-third text-2xl font-bold mr-6 ">
+              <span className="text-first  text-3xl">S</span>ab3aat
             </NavLink>
             <NavLink
               to="/categories"
@@ -23,7 +23,7 @@ export default function Navbar() {
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg "
                 }`
               }
             >
@@ -36,49 +36,49 @@ export default function Navbar() {
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg"
                 }`
               }
             >
-              service
+              Service
             </NavLink>
 
-            <NavLink
+            {/* <NavLink
               to="/notifications"
               className={({ isActive }) =>
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg "
                 }`
               }
             >
               Notifications
-            </NavLink>
-            <NavLink
+            </NavLink> */}
+            {/* <NavLink
               to="/message"
               className={({ isActive }) =>
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg "
                 }`
               }
             >
-              message
-            </NavLink>
-            <NavLink
+              Message
+            </NavLink> */}
+            {/* <NavLink
               to="/cart"
               className={({ isActive }) =>
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg"
                 }`
               }
             >
               Cart
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
               to="/about"
@@ -86,11 +86,11 @@ export default function Navbar() {
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg"
                 }`
               }
             >
-              About us
+              About Us
             </NavLink>
             <NavLink
               to="/createService"
@@ -98,40 +98,57 @@ export default function Navbar() {
                 `mr-5 ${
                   isActive
                     ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
-                    : "text-first "
+                    : "text-first text-lg"
                 }`
               }
             >
               Create Service
             </NavLink>
+            <NavLink
+              to="/CreateCourse"
+              className={({ isActive }) =>
+                ` ${
+                  isActive
+                    ? "text-second font-extrabold text-lg border-b-orange-300 border-b-2"
+                    : "text-first text-lg "
+                }`
+              }
+            >
+              Create Course{" "}
+            </NavLink>
           </div>
-          <div className="flex items-center">
+
+          <div className="flex items-center ">
             {/* <NavLink to="/profile" className="text-white mr-5">
               Profile
             </NavLink> */}
 
-            <NavLink to="/login" className="text-white mr-5">
+            <NavLink to="/login" className="text-white mr-5 text-lg font-bold">
               login
             </NavLink>
-            <NavLink to="/register" className="text-white mr-5">
+            <NavLink to="/register" className="text-white text-lg font-bold">
               register
             </NavLink>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <FaSearch className=" text-gray-400 hover:text-white focus:outline-none mr-4" />
-            <IoCartSharp className=" text-gray-400 hover:text-white focus:outline-none mr-4" />
-
-            <LuMessagesSquare className=" text-gray-400 hover:text-white focus:outline-none mr-4" />
-
-            <button
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 m-1 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
+            <FaSearch className=" text-gray-200 hover:text-white focus:outline-none mr-4 text-xl" />
+            <NavLink to="/cart">
+              <IoCartSharp className=" text-gray-200 hover:text-white focus:outline-none mr-4 text-xl" />
+            </NavLink>
+            <NavLink to="/message">
+            <LuMessagesSquare className=" text-gray-200 hover:text-white  focus:outline-none mr-4 text-xl " />
+            </NavLink>
+            
+          <NavLink to="/notifications">
+          <button
               type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              className="relative rounded-full p-1 text-gray-200 hover:text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
               <BellIcon className="h-6 w-6" aria-hidden="true" />
             </button>
-
+          </NavLink>
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div>
@@ -140,13 +157,14 @@ export default function Navbar() {
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">Open user menu</span>
                     <img
-                      className="h-8 w-8 rounded-full"
+                      className="h-8 w-8 rounded-full "
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""
                     />
                   </Menu.Button>
                 </NavLink>
               </div>
+
               <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
