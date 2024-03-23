@@ -2,9 +2,14 @@ import Button from "react-bootstrap/Button";
 
 import "./profile.css";
 import { NavLink, Outlet } from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 export default function Profile() {
+
+
+  const role  =useSelector((state)=>state.role.role)
+console.log(role);
   return (
+
     <div className="container-fluid bg-zink-200 items-center ">
       <div className="container sec1 bg-gray-100 py-5 rounded-lg">
         <div className="text-center">

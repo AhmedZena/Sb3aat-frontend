@@ -1,13 +1,15 @@
 import axios from "axios";
-
+import axiosInstance from "../../../axiousConfig/instance.js"
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import {changeRole}from "../../../Store/slices/role.js"
 const colors = {
   primary: "#060606",
   background: "#f5f5f5",
   disbaled: "#D9D9D9",
 };
 export default function Login() {
-
+  const dispatch =useDispatch()
   const [formData, setFormData] = useState({
    
     email: "",
@@ -25,6 +27,20 @@ export default function Login() {
     
       const response = await axios.post(`${process.env.baseUrl}/auth/login`, formData);
       console.log(response.data.token);
+      localStorage.setItem('token', response.data.token);
+      // const response2 = await axiosInstance.get(`/auth/profile`);
+      // console.log(response2.data);
+
+      axiosInstance.get('/auth/profile')
+      .then(response => {
+        dispatch(changeRole(response.data.role))
+        console.log(response.data);
+
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+    
+      })
       // Redirect the user after successful registration, for example to the login page
     } catch (error) {
       console.error("login failed:", error);
@@ -140,78 +156,3 @@ export default function Login() {
 
 
 
-
-
-
-
-
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-
-// const Login = () => {
-//   const [formData, setFormData] = useState({
-//     email: "",
-//     password: "",
-//   });
-
-//   const navigate = useNavigate();
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post("https://sb3aat.onrender.com/api/auth/login", formData);
-//       console.log(response.data.message);
-//       // Redirect the user after successful login, for example to the dashboard
-//       navigate("/");
-//     } catch (error) {
-//       console.error("Login failed:", error);
-//     }
-//   };
-
-//   return (
-//     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-//       <div className="bg-white p-8 rounded-lg shadow-lg">
-//         <h2 className="text-2xl font-semibold mb-4">Login to your account</h2>
-//         <form onSubmit={handleLogin}>
-//           <div className="mb-4">
-//             <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
-//             <input
-//               type="email"
-//               id="email"
-//               name="email"
-//               value={formData.email}
-//               onChange={handleChange}
-//               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-//               placeholder="Enter your email"
-//             />
-//           </div>
-//           <div className="mb-4">
-//             <label htmlFor="password" className="block text-gray-700 mb-2">Password</label>
-//             <input
-//               type="password"
-//               id="password"
-//               name="password"
-//               value={formData.password}
-//               onChange={handleChange}
-//               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-//               placeholder="Enter your password"
-//             />
-//           </div>
-//           <button
-//             type="submit"
-//             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
-//           >
-//             Login
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;
