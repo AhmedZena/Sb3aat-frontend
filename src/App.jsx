@@ -22,12 +22,20 @@ import Paypal from "./Pages/Payment/Paypal.jsx";
 import Courses from "./Pages/courses/courses.jsx";
 import CreateService from "./Pages/service/CreateService.jsx";
 import Course from "./Pages/courses/Course.jsx";
+
+import { Provider } from "react-redux";
+import store from './Store/store.js';
+
 import {CreateCourse}  from "./Pages/courses/CreateCourse.jsx";
+
 
 function App() {
   return (
+    <Provider store={store}>
     <BrowserRouter>
+    
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/services/:categoryId" element={<Services />}></Route>
@@ -56,8 +64,12 @@ function App() {
       </Routes>
       {/* <SubCategory /> */}
       <Footer />
+       
     </BrowserRouter>
+    </Provider>
   );
 }
 
 export default App;
+
+
