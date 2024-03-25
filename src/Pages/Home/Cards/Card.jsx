@@ -1,16 +1,17 @@
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function BackgroundBlogCard() {
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get("https://sb3aat.onrender.com/api/categories")
       .then((response) => {
-        setCategories(response.data.categories);
-        console.log(response.data.categories);
+        setCategories(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -19,13 +20,13 @@ export default function BackgroundBlogCard() {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-5">
+      <div className="grid grid-cols-4  justify-center ">
         {categories.map((category, index) => (
-          
           <Card
+            onClick={() => navigate(`/subCategories/${category._id}`)}
             key={index}
             shadow={false}
-            className="relative grid h-[18rem] w-full max-w-[25rem] items-end justify-center overflow-hidden text-center mt-5 mb-10"
+            className="relative grid h-[18rem] w-11/12 max-w-[25rem] items-end justify-center overflow-hidden text-center hover:scale-105 hover:cursor-pointer transition-transform duration-300 ease-in-out"
           >
             <CardBody
               floated={false}
@@ -33,16 +34,21 @@ export default function BackgroundBlogCard() {
               color="transparent"
               className={`absolute  m-0 h-full w-full  bg-cover bg-center`}
             >
-               <img variant="top" src={category.CatImgSrc} className="absolute z-10 w-5/6 h-5/6 rounded-xl" />
-              <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t  via-black/50" />
+              <img
+                variant="top"
+                src={category.CatImgSrc}
+                className="absolute z-10 w-5/6 h-5/6 rounded-xl"
+              />
+
+              <div className="to-bg-black-10 z-20 absolute rounded-xl w-5/6 h-5/6 bg-black bg-opacity-50" />
             </CardBody>
             <Typography
-                variant="h2"
-                color="black"
-                className=" z-50 font-medium leading-[1.5] text-white flex justify-center items-center mb-24 "
-              >
-                {category.Name}
-              </Typography>
+              variant="h4"
+              color="black"
+              className=" z-50  leading-[1.5] text-white  text-center mb-32 "
+            >
+              {category.Name}
+            </Typography>
           </Card>
         ))}
       </div>
@@ -50,13 +56,9 @@ export default function BackgroundBlogCard() {
   );
 }
 
-
-
 // import { Card, CardBody, Typography } from "@material-tailwind/react";
 // import React, { useState, useEffect } from "react";
 // import axios from "axios";
-
-
 
 // export default function BackgroundBlogCard() {
 
@@ -73,8 +75,6 @@ export default function BackgroundBlogCard() {
 //         console.log(error);
 //       });
 //   }, []);
-
-
 
 //   return (
 //     <>
@@ -245,9 +245,8 @@ export default function BackgroundBlogCard() {
 //       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
-  
-// </div>
 
+// </div>
 
 //     </>
 //   );

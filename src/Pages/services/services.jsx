@@ -10,7 +10,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-import { Link , useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Services() {
   const [arr, setArr] = useState([]);
@@ -19,8 +19,9 @@ export default function Services() {
 
   useEffect(() => {
     axios
-      .get(`https://sb3aat.onrender.com/api/services/category/${ categoryId }`)
+      .get(`https://sb3aat.onrender.com/api/services/category/${categoryId}`)
       .then((ser) => {
+        console.log(ser.data);
         setArr(ser.data);
       })
       .catch((e) => {});
@@ -84,7 +85,7 @@ export default function Services() {
           </Dropdown>
         </div>
 
-        <Row xs={1} md={2} lg={4} className="g-4">
+        <Row xs={1} md={2} lg={3} className="g-4">
           {/* Assuming you'll loop through an array of services */}
           {arr.map((item, index) => (
             <Link to={`/services/${item._id}`}>
@@ -93,16 +94,16 @@ export default function Services() {
                   <Card.Img
                     variant="top"
                     src={item.serviceImgSrc}
-                    className="object-cover w-full h-80"
+                    className="object-cover w-full h-48"
                   />
-                  <Card.Body className="h-60">
+                  <Card.Body className="h-60 flex flex-col justify-between">
                     <a href="#" className="font-bold text-blue-900">
                       {item.title}
                     </a>
                     <Card.Text className="text-sm text-black">
                       Category/sub Category
                     </Card.Text>
-                    <Card.Text className="text-xl text-gray-700">
+                    <Card.Text className="text-xs text-gray-700">
                       {item.description}
                     </Card.Text>
                     <div className="flex items-center">

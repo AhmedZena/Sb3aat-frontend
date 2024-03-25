@@ -1,60 +1,15 @@
-import Header from "./Header/Header";
-import Hero from "./Hero/Hero";
-// import About from "./About US/About Us";
-import Carousel from "./Serve/Serve";
-import CustomCard from "./Cards/Card";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import FourthCards from "../../components/FourthCards";
-// const prdArr = [
-//   {
-//     imgSrc: ["./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg"],
-//     title: "product 1",
-//   },
-//   {
-//     imgSrc: ["./2.jpg", "./4.jpg", "./3.jpg", "./1.jpg"],
-//     title: "product 2",
-//   },
-//   {
-//     imgSrc: ["./4.jpg", "./2.jpg", "./3.jpg", "./1.jpg"],
-//     title: "product 3",
-//   },
-//   {
-//     imgSrc: ["./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg"],
-//     title: "product 4",
-//   },
-// ];
-
-function Home() {
-  const [arr, setArr] = useState([]);
-
-  //   const { categoryId } = useParams();
-
-  useEffect(() => {
-    axios
-      .get(
-        `https://sb3aat.onrender.com/api/services/category/65f04379d93290b026515596`
-      )
-      .then((ser) => {
-        console.log(ser.data);
-        setArr(ser.data.slice(0, 4));
-      })
-      .catch((e) => {});
-  }, []);
-
+function FourthCards({ title, arr }) {
   return (
     <>
-      {/* <Header /> */}
-      <Hero />
-      <CustomCard />
-
-      {/* <div className="flex justify-between m-10">
+      <div className="flex justify-between m-10">
         <h3 className="text-3xl font-bold text-center text-gray-600">
-          Web Development Services
+          {/* Web Development Services */}
+          {title}
         </h3>
         <button className="border-2 border-green-500 hover:bg-green-500 hover:text-white text-green-500 font-bold py-2 px-4 rounded-full">
           View All
@@ -62,6 +17,7 @@ function Home() {
       </div>
 
       <Row xs={1} md={2} lg={4} className="g-4 mx-20 mb-20">
+        {/* Assuming you'll loop through an array of services */}
         {arr.map((item, index) => (
           <Link to={`/services/${item._id}`}>
             <Col key={index}>
@@ -102,18 +58,9 @@ function Home() {
             </Col>
           </Link>
         ))}
-      </Row> */}
-
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
-      <FourthCards title="Web Development Services" arr={arr} />
+      </Row>
     </>
   );
 }
 
-export default Home;
+export default FourthCards;

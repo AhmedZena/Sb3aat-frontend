@@ -22,34 +22,63 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //   const handleSignUp = async (e) => {
+  //     e.preventDefault();
+  //     console.log(formData);
+  //     try {
+  //       const response = await axios.post(
+  //         `${process.env.baseUrl}/auth/login`,
+  //         formData
+  //       );
+  //       console.log(response.data.token);
+  //       localStorage.setItem("token", response.data.token);
+  //       // const response2 = await axiosInstance.get(`/auth/profile`);
+  //       // console.log(response2.data);
+
+  //       axiosInstance
+  //         .get("/auth/profile")
+  //         .then((response) => {
+  //           dispatch(changeRole(response.data.role));
+  //           dispatch(changeUser(response.data));
+  //           console.log(response.data);
+  //           //   redirect to the profile
+  //           navigate("/profile");
+  //         })
+  //         .catch((error) => {
+  //           console.error("There was an error!", error);
+  //         });
+  //       // Redirect the user after successful registration, for example to the login page
+  //     } catch (error) {
+  //       console.error("login failed:", error);
+  //     }
+  //   };
   const handleSignUp = async (e) => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await axios.post(
+      // First API Call: User Login
+      const loginResponse = await axios.post(
         `${process.env.baseUrl}/auth/login`,
         formData
       );
-      console.log(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      // const response2 = await axiosInstance.get(`/auth/profile`);
-      // console.log(response2.data);
+      console.log(loginResponse.data.token);
+      localStorage.setItem("token", loginResponse.data.token);
 
-      axiosInstance
-        .get("/auth/profile")
-        .then((response) => {
-          dispatch(changeRole(response.data.role));
-          dispatch(changeUser(response.data));
-          console.log(response.data);
-          //   redirect to the profile
-          navigate("/profile");
-        })
-        .catch((error) => {
-          console.error("There was an error!", error);
-        });
-      // Redirect the user after successful registration, for example to the login page
+      // Set the token for subsequent requests
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `${loginResponse.data.token}`;
+
+      // Second API Call: Fetch User Profile
+      const profileResponse = await axiosInstance.get("/auth/profile");
+      dispatch(changeRole(profileResponse.data.role));
+      dispatch(changeUser(profileResponse.data));
+      console.log(profileResponse.data);
+
+      // Navigate to profile
+      navigate("/profile");
     } catch (error) {
-      console.error("login failed:", error);
+      console.error("There was an error!", error);
     }
   };
 
@@ -117,7 +146,10 @@ export default function Login() {
               Login
             </button>
 
-            <button className="w-full text-[#060606] my-2 font-semibold  bg-white border border-black/40 rounded-md p-4 text-center flex items-center justify-center cursor-pointer">
+            <button
+              className="w-full text-[#060606] my-2 font-semibold  bg-white border border-black/40 rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
+              onClick={() => navigate("/register")}
+            >
               Register
             </button>
           </div>

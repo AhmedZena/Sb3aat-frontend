@@ -1,5 +1,5 @@
 import { FaInfoCircle } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Chip,
@@ -10,63 +10,114 @@ import {
   Select,
 } from "@mui/material";
 import { Typography, List, ListItem, ListItemText, Paper } from "@mui/material";
-
+import axios from "axios";
+import { useSelector } from "react-redux";
 function CreateService() {
-  const [selectedImages, setSelectedImages] = useState([]);
+  const { user } = useSelector((state) => state.user);
+  //   console.log({ user });
+  const [selectedImage, setSelectedImage] = useState("");
   const [personName, setPersonName] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState("");
+  const [subCategories, setSubCategories] = useState([]);
+  const [formData, setFormData] = useState({
+    freelancerId: user._id,
+    title: "",
+    description: "",
+    price: "",
+    deliveryTime: "",
+    buyerInstruction: "",
+    subCategoryID: "",
+    tags: [],
+    serviceImage: "",
+  });
 
-  const handleImageChange = (e) => {
-    if (e.target.files) {
-      // Create URLs from the new files
-      const newFilesArray = Array.from(e.target.files).map((file) =>
-        URL.createObjectURL(file)
-      );
-
-      // Combine new and old images, but keep only the first three
-      setSelectedImages((prevImages) => {
-        const combinedImages = [...prevImages, ...newFilesArray];
-        return combinedImages.slice(0, 3);
-      });
+  const names = [
+    "Programming",
+    "Design",
+    "Marketing",
+    "Writing",
+    "Video & Animation",
+    "Music & Audio",
+    "Business",
+    "Lifestyle",
+    "Data",
+    "Translation",
+    "Legal",
+  ];
+  const handleChange = (event) => {
+    if (event.target.value.length <= 5) {
+      setPersonName(event.target.value);
     }
   };
 
-  const renderPhotos = (source) => {
-    return source.map((photo) => {
-      return (
-        <img
-          src={photo}
-          key={photo}
-          alt="preview"
-          className="w-32 h-32 object-cover mr-2"
-        />
-      );
-    });
+  useEffect(() => {
+    axios
+      .get("https://sb3aat.onrender.com/api/categories")
+      .then((response) => {
+        setCategories(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://sb3aat.onrender.com/api/subCategories/category/${categoryId}`
+      )
+      .then((response) => {
+        console.log(response.data.subCategories);
+        setSubCategories(response.data.subCategories);
+        // Check if response data contains subCategories array before setting state
+        if (Array.isArray(response.data)) {
+          setSubCategories(response.data[0]);
+        } else {
+          console.error("Subcategories data is not an array:", response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [categoryId]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "serviceImage") {
+      setSelectedImage(value);
+    }
+
+    if (name === "category") {
+      setCategoryId(value);
+    }
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
-  const handleChange = (event) => {
-    // const {
-    //   target: { value },
-    // } = event;
-    // setPersonName(
-    //   // On autofill we get a stringified value.
-    //   typeof value === "string" ? value.split(",") : value
-    // );
+  const handleSubmit = async (e) => {
+    const token = localStorage.getItem("token");
+    e.preventDefault();
+    // handle all data to be send to the server
+    // https://sb3aat.onrender.com/api/services post
+    console.log(formData);
+    try {
+      const response = await axios.post(
+        "https://sb3aat.onrender.com/api/services",
+        formData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
-    // maximum 5 tags
-    if (event.target.value.length <= 5) {
-      setPersonName(event.target.value);
+      console.log(response.data);
+    } catch (error) {
+      console.error("There was an error!", error);
     }
   };
 
@@ -76,7 +127,7 @@ function CreateService() {
       <div className="mt-3 p-2">
         <h3 className="text-black">Home</h3>
         <div className="flex items-center justify-between">
-          <h2 className="text-3xl">Craete New Service</h2>
+          <h2 className="text-3xl">Create New Service</h2>
 
           <div className="flex items-center">
             <button className="border-2 border-green-500 text-green-500 flex font-bold py-2 px-4 items-center rounded ml-4  hover:bg-green-600 hover:text-white">
@@ -96,9 +147,13 @@ function CreateService() {
 
             <input
               type="text"
-              className="w-full border-2 border-gray-200   p-2 rounded"
+              name="title"
+              className="w-full border-2 border-gray-200 p-2 rounded"
               placeholder="Enter Service Title"
+              onChange={handleInputChange}
+              value={formData.title}
             />
+
             <span>
               <small className="text-gray-500">
                 Enter a clear English title describing the service you wish to
@@ -115,23 +170,35 @@ function CreateService() {
               <div className="w-5/12">
                 <select
                   className="w-full border-2 border-gray-200   p-2 rounded"
-                  name="categories"
+                  name="category"
                   id="categories"
+                  onChange={(e) => setCategoryId(e.target.value)}
+                  //   onChange={handleInputChange}
+                  //   value={formData.category}
                 >
-                  <option value="1">Select Category</option>
+                  {/* <option value="1">Select Category</option>
                   <option value="2">Select Category</option>
-                  <option value="3">Select Category</option>
+                  <option value="3">Select Category</option> */}
+                  {categories.map((category) => (
+                    <option value={category._id}>{category.Name}</option>
+                  ))}
                 </select>
               </div>
               <div className="w-5/12">
                 <select
                   className="w-full border-2 border-gray-200   p-2 rounded"
-                  name="subcategories"
-                  id="subcategories"
+                  name="subCategoryID"
+                  id="subCategoryID"
+                  //   onChange={handleSubCategoryChange}
+                  onChange={handleInputChange}
+                  value={formData.subCategoryID}
                 >
-                  <option value="1">Select Sub Category</option>
+                  {/* <option value="1">Select Sub Category</option>
                   <option value="2">Select Sub Category</option>
-                  <option value="3">Select Sub Category</option>
+                  <option value="3">Select Sub Category</option> */}
+                  {subCategories.map((subCategory) => (
+                    <option value={subCategory._id}>{subCategory.name}</option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -148,6 +215,9 @@ function CreateService() {
             <textarea
               className="mt-2 w-full border-2 border-gray-200   p-2 rounded h-52"
               placeholder="Enter Description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
             ></textarea>
             <span>
               <small className="text-gray-500">
@@ -160,57 +230,36 @@ function CreateService() {
 
           {/* imgs  upload */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Upload Images</h3>
-            <div className="mt-2 flex items-center justify-center w-full">
-              <label
-                for="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-64 border-2 border-green-200   border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-green-100"
-              >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <svg
-                    className="w-8 h-8 mb-4 text-green-500 dark:text-green-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                    />
-                  </svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold"> Drag and drop </span>{" "}
-                    Images here
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                  </p>
-                </div>
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  className="hidden"
-                  multiple
-                  onChange={handleImageChange}
-                  accept="image/*"
-                />
-              </label>
-            </div>
+            <h3 className="text-black font-semibold">Enter Images</h3>
+            <input
+              type="url"
+              className="w-full border-2 border-gray-200   p-2 rounded"
+              placeholder="Enter Image URL"
+              //   onChange={(e) => {
+              //     setSelectedImage(e.target.value);
+              //   }}
+              onChange={handleInputChange}
+              value={formData.serviceImage}
+              name="serviceImage"
+            />
 
             <span>
               <small className="text-gray-500">
-                Upload images that best represent your service. You can upload
-                up to 3 images.
+                Add an image that represents your service.
               </small>
             </span>
-            <div className=" items-center sm:flex   justify-evenly mt-2">
-              {renderPhotos(selectedImages)}
-            </div>
           </div>
+
+          {selectedImage && (
+            <div className="mt-4">
+              <h3 className="text-black font-semibold">Selected Image</h3>
+              <img
+                src={selectedImage}
+                alt="selected image"
+                className="w-1/2 h-1/2"
+              />
+            </div>
+          )}
 
           {/* price , delivery time */}
           <div className="mt-4">
@@ -222,13 +271,32 @@ function CreateService() {
                   className="w-full border-2 border-gray-200   p-2 rounded"
                   placeholder="Enter Price"
                   min="7"
+                  name="price"
+                  onChange={handleInputChange}
+                  value={formData.price}
                 />
               </div>
               <div className="w-5/12">
-                <select className="w-full border-2 border-gray-200   p-2 rounded">
-                  <option value="1">Select Delivery Time</option>
+                <select
+                  className="w-full border-2 border-gray-200   p-2 rounded"
+                  name="deliveryTime"
+                  onChange={handleInputChange}
+                  value={formData.deliveryTime}
+                >
+                  {/* <option value="1">Select Delivery Time</option>
                   <option value="2">Select Delivery Time</option>
-                  <option value="3">Select Delivery Time</option>
+                  <option value="3">Select Delivery Time</option> */}
+                  {/*  one day , two , three , four , five 
+                  one week , two , three , one month  */}
+                  <option value="1">One Day</option>
+                  <option value="2">Two Days</option>
+                  <option value="3">Three Days</option>
+                  <option value="4">Four Days</option>
+                  <option value="5">Five Days</option>
+                  <option value="6">One Week</option>
+                  <option value="7">Two Weeks</option>
+                  <option value="8">Three Weeks</option>
+                  <option value="9">One Month</option>
                 </select>
               </div>
             </div>
@@ -283,6 +351,9 @@ function CreateService() {
             <textarea
               className="mt-2 w-full border-2 border-gray-200  p-2 rounded h-52"
               placeholder="Enter Buyer Instruction"
+              name="buyerInstruction"
+              onChange={handleInputChange}
+              value={formData.buyerInstruction}
             ></textarea>
             <span>
               <small className="text-gray-500">
@@ -347,7 +418,10 @@ function CreateService() {
           </div>
           {/* submit */}
           <div className="mt-4">
-            <button className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
+            <button
+              className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600"
+              onClick={handleSubmit}
+            >
               Add Service
             </button>
           </div>

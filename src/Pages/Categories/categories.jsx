@@ -10,7 +10,7 @@ function Categories() {
     axios
       .get("https://sb3aat.onrender.com/api/categories")
       .then((response) => {
-        setCategories(response.data.categories);
+        setCategories(response.data);
         console.log(response.data.categories);
       })
       .catch((error) => {
@@ -20,20 +20,31 @@ function Categories() {
 
   return (
     <div className="flex flex-wrap p-5 mb-5 bg-zinc-300">
-      <h1 className="p-2 mx-5 text-4xl font-bold text-black ring-white ring rounded-xl">categories</h1>
+      <h1 className="p-2 mx-5 text-4xl font-bold text-black ring-white ring rounded-xl">
+        categories
+      </h1>
       <Row xs={1} md={2} lg={4} className="m-4 g-4">
         {categories.map((category, index) => (
           <Col key={index}>
-            <Link  to={`/subCategories/${category._id}`}  className="text-decoration-none">
+            <Link
+              to={`/subCategories/${category._id}`}
+              className="text-decoration-none"
+            >
               <Card className="h-100 d-flex flex-column">
-                <Card.Img variant="top" src={category.CatImgSrc} className="w-full h-80" />
+                <Card.Img
+                  variant="top"
+                  src={category.CatImgSrc}
+                  className=" h-52"
+                />
 
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <div>
                     <Card.Title className="text-2xl text-center underline">
                       {category.Name}
                     </Card.Title>
-                    <Card.Text className="font-bold text-center">{category.Description}</Card.Text>
+                    <Card.Text className="font-bold text-center">
+                      {category.Description}
+                    </Card.Text>
                   </div>
                 </Card.Body>
               </Card>
