@@ -6,34 +6,32 @@ import { Link } from "react-router-dom";
 function FourthCards({ title, arr }) {
   return (
     <>
-      <div className="flex justify-between m-10">
-        <h3 className="text-3xl font-bold text-center text-gray-600">
+      <div className="flex justify-between m-10 ">
+        <h3 className="mx-10 text-3xl font-bold text-center text-gray-600">
           {/* Web Development Services */}
           {title}
         </h3>
-        <button className="border-2 border-green-500 hover:bg-green-500 hover:text-white text-green-500 font-bold py-2 px-4 rounded-full">
+        <button className="px-4 py-2 text-green-500 border-2 border-green-500 rounded-full font2bold mx-36 hover:bg-green-500 hover:text-white">
           View All
         </button>
       </div>
 
-      <Row xs={1} md={2} lg={4} className="g-4 mx-20 mb-20">
+      <Row xs={1} md={2} lg={4} className="mx-20 mb-20 g-4">
         {/* Assuming you'll loop through an array of services */}
         {arr.map((item, index) => (
           <Link to={`/services/${item._id}`}>
             <Col key={index}>
-              <Card className="max-w-xs  border-none  max-h-300">
+              <Card className="max-w-xs border-none max-h-300">
                 <Card.Img
                   variant="top"
                   src={item.serviceImgSrc}
-                  className="object-cover w-full h-32"
+                  className="object-cover w-full h-40"
                 />
-                <Card.Body className="h-52 flex flex-col justify-between">
-                  <a href="#" className="font-bold text-blue-900">
+                <Card.Body className="flex flex-col justify-between h-52">
+                  <a href="#" className="font-bold text-blue-900 ">
                     {item.title}
                   </a>
-                  <Card.Text className="text-sm text-black">
-                    Category/sub Category
-                  </Card.Text>
+                
 
                   <div className="flex items-center">
                     {[...Array(5)].map((star, i) => (
