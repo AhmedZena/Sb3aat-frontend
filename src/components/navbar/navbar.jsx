@@ -10,7 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
-
+import { useEffect } from "react";
+import axios from "axios";
+import axiosInstance from "../../axiousConfig/instance.js";
+import { useDispatch } from "react-redux";
+import { changeRole } from "../../Store/slices/role.js";
+import { changeUser } from "../../Store/slices/user.js";
 export default function Navbar() {
   const navigate = useNavigate();
   const isUser = localStorage.getItem("token");
@@ -23,6 +28,35 @@ export default function Navbar() {
   const { user } = useSelector((state) => state.user);
   console.log({ user });
 
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+
+  const fetchProfile = async () => {
+    try {
+      axiosInstance.defaults.headers.common["Authorization"] = `${token}`;
+      // Second API Call: Fetch User Profile
+      const profileResponse = await axiosInstance.get("/auth/profile");
+      dispatch(changeRole(profileResponse.data.role));
+      dispatch(changeUser(profileResponse.data));
+      console.log(profileResponse.data);
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  };
+  useEffect(() => {
+    // try {
+    //   axiosInstance.defaults.headers.common["Authorization"] = `${token}`;
+    //   // Second API Call: Fetch User Profile
+    //   const profileResponse = await axiosInstance.get("/auth/profile");
+    //   dispatch(changeRole(profileResponse.data.role));
+    //   dispatch(changeUser(profileResponse.data));
+    //   console.log(profileResponse.data);
+    // } catch (error) {
+    //   console.error("There was an error!", error);
+    // }
+
+    fetchProfile();
+  }, []);
   return (
     <div className="bg-slate-800">
       <div className="container mx-auto">
@@ -91,12 +125,23 @@ export default function Navbar() {
             {/* <NavLink to="/profile" className="mr-5 text-white">
               Profile
             </NavLink> */}
-            <NavLink to="/login" className="mr-5 text-lg font-bold text-white">
-              login
-            </NavLink>
-            <NavLink to="/register" className="text-lg font-bold text-white">
-              register
-            </NavLink>
+
+            {!user.role && (
+              <>
+                <NavLink
+                  to="/login"
+                  className="mr-5 text-lg font-bold text-white"
+                >
+                  login
+                </NavLink>
+                <NavLink
+                  to="/register"
+                  className="text-lg font-bold text-white"
+                >
+                  register
+                </NavLink>
+              </>
+            )}
           </div>
           {user.role && (
             <>
@@ -151,7 +196,12 @@ export default function Navbar() {
                         {({ active }) => (
                           <div className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700">
                             <CgProfile />
-                            <button className="font-bold">Your Profile</button>
+                            <button
+                              className="font-bold"
+                              onClick={() => navigate("/profile")}
+                            >
+                              Your Profile
+                            </button>
                           </div>
                         )}
                       </Menu.Item>

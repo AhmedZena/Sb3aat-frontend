@@ -12,7 +12,10 @@ import {
 import { Typography, List, ListItem, ListItemText, Paper } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 function CreateService() {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   //   console.log({ user });
   const [selectedImage, setSelectedImage] = useState("");
@@ -27,6 +30,7 @@ function CreateService() {
     price: "",
     deliveryTime: "",
     buyerInstruction: "",
+    // buyerInstruction: "",
     subCategoryID: "",
     tags: [],
     serviceImage: "",
@@ -114,10 +118,16 @@ function CreateService() {
           },
         }
       );
+      toast.success("Service Added Successfully");
+      navigate("/");
 
       console.log(response.data);
     } catch (error) {
       console.error("There was an error!", error);
+      toast.error(error.response.data.message);
+      if (error.response.status === 401) {
+        navigate("/login");
+      }
     }
   };
 

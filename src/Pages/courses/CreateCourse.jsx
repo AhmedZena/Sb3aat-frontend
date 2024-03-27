@@ -61,7 +61,7 @@ export function CreateCourse() {
       <div className="mt-3 p-2">
         <h3 className="text-black">Home</h3>
         <div className="flex items-center justify-between">
-          <h2 className="text-3xl">Craete New Course</h2>
+          <h2 className="text-3xl">Create New Course</h2>
 
           <div className="flex items-center">
             <button className="border-2 border-green-500 text-green-500 flex font-bold py-2 px-4 items-center rounded ml-4  hover:bg-green-600 hover:text-white">
