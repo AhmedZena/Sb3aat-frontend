@@ -39,7 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/services/:categoryId" element={<Services />}></Route>
-        <Route path="/service" element={<Service />}></Route>
+        <Route path="/service/:id" element={<Service />}></Route>
         <Route path="/profile" element={<Profile />}>
           <Route index element={<PersonalProfile />} />
           <Route path="myServices" element={<Myservices />} />
@@ -57,7 +57,7 @@ function App() {
         <Route path="/createCourse" element={<CreateCourse />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/message" element={<Message />} />
+        <Route path="/message/:id" element={<Message />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Payment />} />
         <Route path="/paypal" element={<Paypal />} />

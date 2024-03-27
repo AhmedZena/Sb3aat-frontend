@@ -88,7 +88,7 @@ export default function Services() {
         <Row xs={1} md={2} lg={3} className="g-4">
           {/* Assuming you'll loop through an array of services */}
           {arr.map((item, index) => (
-            <Link to={`/services/${item._id}`}>
+            <Link to={`/service/${item._id}`}>
               <Col key={index}>
                 <Card className="max-w-xs bg-white border-none shadow-xl max-h-300">
                   <Card.Img
@@ -96,7 +96,7 @@ export default function Services() {
                     src={item.serviceImgSrc}
                     className="object-cover w-full h-48"
                   />
-                  <Card.Body className="h-60 flex flex-col justify-between">
+                  <Card.Body className="flex flex-col justify-between h-60">
                     <a href="#" className="font-bold text-blue-900">
                       {item.title}
                     </a>
