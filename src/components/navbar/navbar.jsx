@@ -151,7 +151,7 @@ export default function Navbar() {
                 <NavLink to="/cart">
                   <IoCartSharp className="mr-4 text-xl text-gray-200 hover:text-white focus:outline-none" />
                 </NavLink>
-                <NavLink to="/message">
+                <NavLink to={`/messages/${user._id}`}>
                   <LuMessagesSquare className="mr-4 text-xl text-gray-200 hover:text-white focus:outline-none" />
                 </NavLink>
 

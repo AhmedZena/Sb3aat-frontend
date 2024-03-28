@@ -20,7 +20,7 @@ export default function Service() {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`http://localhost:8800/api/services/service/${id}`)
+      .get(`https://sb3aat.onrender.com/api/services/service/${id}`)
       .then((ser) => {
         console.log(ser.data);
         setService(ser.data);
@@ -29,7 +29,7 @@ export default function Service() {
   }, []);
   useEffect(() => {
     axios
-      .get(`http://localhost:8800/api/auth/getUserById/${service.freelancerId}`)
+      .get(`https://sb3aat.onrender.com/api/auth/getUserById/${service.freelancerId}`)
       .then((ser) => {
         console.log(ser.data);
         setOwner(ser.data);
@@ -49,7 +49,7 @@ export default function Service() {
             <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
               Order Now
             </button>
-            <Link to={`/message/${service._id}`}>
+            <Link to={`/message/${service.freelancerId}`}>
               <button className="px-4 py-2 ml-4 font-bold text-white bg-green-500 rounded hover:bg-green-700">
                 Chat with Seller
               </button>
@@ -280,7 +280,7 @@ export default function Service() {
                   </div>
                 </div>
                 {/* contact freelancer */}
-                <Link to={`/message/${service._id}`}>
+                <Link to={`/message/${service.freelancerId}`}>
                   <button className="px-4 py-2 font-bold text-green-500 border-2 border-green-500 rounded hover:bg-green-500 hover:text-white">
                     Chat with Me
                   </button>

@@ -22,7 +22,7 @@ import Paypal from "./Pages/Payment/Paypal.jsx";
 import Courses from "./Pages/courses/courses.jsx";
 import CreateService from "./Pages/service/CreateService.jsx";
 import Course from "./Pages/courses/Course.jsx";
-
+import Msg from "./Pages/Message/Msg.jsx";
 import { Provider } from "react-redux";
 import store from "./Store/store.js";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,6 +38,7 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />}></Route>
+
           <Route path="/services/:categoryId" element={<Services />}></Route>
           <Route path="/service/:id" element={<Service />}></Route>
           <Route path="/profile" element={<Profile />}>
@@ -61,6 +62,7 @@ function App() {
           <Route path="/notifications" element={<Notifications />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/message/:id" element={<Message />} />
+          <Route path="/messages/:id" element={<Msg />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/pay" element={<Payment />} />
           <Route path="/paypal" element={<Paypal />} />

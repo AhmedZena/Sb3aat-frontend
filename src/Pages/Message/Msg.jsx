@@ -1,35 +1,124 @@
-import React from "react";
-import { AiOutlineUser } from "react-icons/ai";
-import { MdAccessTime } from "react-icons/md";
-export default function Msg() {
-  
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+const ConversationsList = () => {
+  const [conversations, setConversations] = useState([]);
+  const { user } = useSelector((state) => state.user);
+  const [userIdAvailable, setUserIdAvailable] = useState(false);
+  const [otherMemberIds, setOtherMemberIds] = useState([]);
+
+  useEffect(() => {
+    if (user._id) {
+      setUserIdAvailable(true);
+    }
+  }, [user._id]);
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      try {
+        const response = await axios.get(
+          `https://sb3aat.onrender.com/api/conversations/${user._id}`
+        );
+        // Filter out conversations where the user is a member
+        const filteredConversations = response.data.filter((conversation) =>
+          conversation.members.includes(user._id)
+        );
+        setConversations(filteredConversations);
+
+        // Fetch member data for all conversations concurrently
+        const memberDataRequests = filteredConversations.map(
+          async (conversation) => {
+            // Find the member ID that is not the current user's ID
+            const otherMemberId = conversation.members.find(
+              (memberId) => memberId !== user._id
+            );
+            setOtherMemberIds((prevState) => [...prevState, otherMemberId]);
+            // Fetch member data using the other member's ID
+            const memberDataResponse = await axios.get(
+              `https://sb3aat.onrender.com/api/auth/getUserById/${otherMemberId}`
+            );
+            return memberDataResponse.data;
+          }
+        );
+        await Promise.all(memberDataRequests);
+      } catch (error) {
+        console.error("Error fetching conversations:", error);
+      }
+    };
+
+    if (userIdAvailable) {
+      fetchConversations();
+    }
+  }, [userIdAvailable, user._id]);
+
   return (
-   
-    
-    <div  className="flex justify-center items-center">
-     
-     <span className="flex items-center space-x-2">
-
-     <img   className="w-12 h-12 rounded-full"
-     
-     src="data:image/png;base64,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" alt="" />
-      
-
-     
-      <h2>hello message</h2>
-     </span >
-       
-      
-          <span className="flex items-center space-x-2">
-          <AiOutlineUser />how are you
-            
-          </span>
-          <span className="flex items-center space-x-2">
-            <MdAccessTime />
-            helloworld
-          </span>
-         
-          
+    <div className="container mx-auto mb-20">
+      <h2 className="my-5 mb-10 text-3xl font-bold text-center">Conversations</h2>
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {conversations.map((conversation, index) => (
+          <li
+            key={conversation._id || index}
+            className="p-6 border rounded-lg shadow-md"
+          >
+            <FetchMemberData memberId={otherMemberIds[index]} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
+
+const FetchMemberData = ({ memberId }) => {
+  const [memberData, setMemberData] = useState(null);
+
+  useEffect(() => {
+    const fetchMember = async () => {
+      try {
+        const response = await axios.get(
+          `https://sb3aat.onrender.com/api/auth/getUserById/${memberId}`
+        );
+        setMemberData(response.data);
+        console.log("Member data fetched " + response.data._id);
+      } catch (error) {
+        console.error("Error fetching member data:", error);
+      }
+    };
+
+    if (memberId) {
+      fetchMember();
+    }
+  }, [memberId]);
+
+  return (
+    <div className="flex flex-col items-center justify-center text-center">
+      {memberData ? (
+        <>
+          <div className="mb-4">
+            <img
+              src={memberData.profilePhoto.url}
+              alt="Profile"
+              className="w-16 h-16 rounded-full"
+            />
+          </div>
+          <div>
+            <h4 className="mb-3 text-xl font-semibold">{memberData.username}</h4>
+            <Link
+              to={`/message/${memberData._id}`}
+              className="block text-blue-500 hover:text-green-700"
+            >
+              <button className="px-4 py-2 font-bold text-green-500 border-2 border-green-500 rounded hover:bg-green-500 hover:text-white">
+                Chat with Me
+              </button>
+            </Link>
+          </div>
+        </>
+      ) : (
+        <p className="text-gray-500">Loading...</p>
+      )}
+    </div>
+  );
+};
+
+export default ConversationsList;
