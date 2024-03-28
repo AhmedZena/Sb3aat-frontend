@@ -3,48 +3,50 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import { FaFacebookSquare } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaTwitterSquare } from "react-icons/fa";
-import { FaTelegram } from "react-icons/fa";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaFacebookSquare, FaLinkedin, FaTwitterSquare, FaTelegram, FaWhatsapp } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-// star
 import StarIcon from "@mui/icons-material/Star";
 import { IoIosMan } from "react-icons/io";
 import { IoTimeOutline } from "react-icons/io5";
 import axios from "axios";
+
 export default function Service() {
   const [service, setService] = useState({});
   const [owner, setOwner] = useState({});
   const { id } = useParams();
+
   useEffect(() => {
-    axios
-      .get(`https://sb3aat.onrender.com/api/services/service/${id}`)
-      .then((ser) => {
-        console.log(ser.data);
-        setService(ser.data);
-      })
-      .catch((e) => {});
-  }, []);
-  useEffect(() => {
-    axios
-      .get(`https://sb3aat.onrender.com/api/auth/getUserById/${service.freelancerId}`)
-      .then((ser) => {
-        console.log(ser.data);
-        setOwner(ser.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+    const fetchService = async () => {
+      try {
+        const serviceResponse = await axios.get(`https://sb3aat.onrender.com/api/services/service/${id}`);
+        console.log(serviceResponse.data);
+        setService(serviceResponse.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchOwner = async () => {
+      try {
+        const ownerResponse = await axios.get(`https://sb3aat.onrender.com/api/auth/getUserById/${service.freelancerId}`);
+        console.log(ownerResponse.data);
+        setOwner(ownerResponse.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchService();
+    if (service.freelancerId) {
+      fetchOwner();
+    }
+  }, [id, service.freelancerId]);
+
   return (
     <>
       <div className="container mx-auto ">
-     
         <div className="flex items-center justify-between">
           <h2 className="m-5 text-3xl">{service.title}</h2>
-
           <div className="flex items-center">
             <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
               Order Now
@@ -72,13 +74,13 @@ export default function Service() {
           <div className="p-3 mt-2 card">
             <h2 className="text-2xl font-bold card-title">Buy The service</h2>
             <div className="p-4 mx-auto card-body">
-              <form class="max-w-sm  flex items-center gap-3">
-                <p for="countries" class=" text-lg font-medium text-gray-900 ">
+              <form className="flex items-center max-w-sm gap-3">
+                <p htmlFor="countries" className="text-lg font-medium text-gray-900 ">
                   Nums Ordered
                 </p>
                 <select
                   id="countries"
-                  class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                  className="p-2 text-2xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="1" selected>
                     1
@@ -87,14 +89,12 @@ export default function Service() {
                   <option value="3">3</option>
                   <option value="4">4</option>
                 </select>
-
-                <p class="text-lg font-medium text-gray-900 ">
+                <p className="text-lg font-medium text-gray-900 ">
                   Cost:
                   <span>7$</span>
                 </p>
               </form>
             </div>
-
             <button className="w-1/3 px-4 py-3 mx-auto font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
               Order Now
             </button>
@@ -261,12 +261,14 @@ export default function Service() {
               <h2 className="text-2xl font-bold card-title">Service owner</h2>
               <div className="flex items-center justify-between my-4 ">
                 <div className="flex items-center">
-                  <img
-                    src="{owner.profilePhoto.url}"
-                    className="w-12 h-12 rounded-full"
-                    alt="Owner"
-                  />
-                  <div className="ml-2">
+                {owner && owner.profilePhoto && owner.profilePhoto.url &&(
+
+                    <div className="ml-2">
+                    <img
+                      src={owner.profilePhoto.url}
+                      className="w-12 h-12 rounded-full"
+                      alt="Owner"
+                    />
                     <p className="font-bold text-gray-700 card-text">
                       {owner.username}
                     </p>
@@ -278,6 +280,7 @@ export default function Service() {
                       </span>
                     </p>
                   </div>
+                )}
                 </div>
                 {/* contact freelancer */}
                 <Link to={`/message/${service.freelancerId}`}>
