@@ -9,8 +9,8 @@ export default function BackgroundBlogCard() {
     axios
       .get("https://sb3aat.onrender.com/api/categories")
       .then((response) => {
-        setCategories(response.data.categories);
-        console.log(response.data.categories);
+        setCategories(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -49,6 +49,48 @@ export default function BackgroundBlogCard() {
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

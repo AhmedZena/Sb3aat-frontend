@@ -57,7 +57,15 @@ function App() {
         <Route path="/createCourse" element={<CreateCourse />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
         <Route path="/about" element={<About />}></Route>
+
+
+          
+
         <Route path="/message" element={<Message />} />
+
+
+          
+         
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Payment />} />
         <Route path="/paypal" element={<Paypal />} />
