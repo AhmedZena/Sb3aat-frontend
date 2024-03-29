@@ -2,54 +2,70 @@ import Header from "./Header/Header";
 import Hero from "./Hero/Hero";
 // import About from "./About US/About Us";
 import Carousel from "./Serve/Serve";
-import Card from "./Cards/Card";
+import CustomCard from "./Cards/Card";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import FourthCards from "../../components/FourthCards";
 
-const prdArr = [
-  {
-    imgSrc: ["./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg"],
-    title: "product 1",
-  },
-  {
-    imgSrc: ["./2.jpg", "./4.jpg", "./3.jpg", "./1.jpg"],
-    title: "product 2",
-  },
-  {
-    imgSrc: ["./4.jpg", "./2.jpg", "./3.jpg", "./1.jpg"],
-    title: "product 3",
-  },
-  {
-    imgSrc: ["./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg"],
-    title: "product 4",
-  },
-];
 
 function Home() {
+  const [arr, setArr] = useState([]);
+const [arr1, setArr1] = useState([]);
+const [arr2, setArr2] = useState([]);
+
+  //   const { categoryId } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://sb3aat.onrender.com/api/services/category/65f04379d93290b026515596`
+      )
+      .then((ser) => {
+        console.log(ser.data);
+        setArr(ser.data.slice(0, 4));
+      })
+      .catch((e) => {});
+  }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `https://sb3aat.onrender.com/api/services/category/65f043dfd93290b02651559c`
+      )
+      .then((ser) => {
+        console.log(ser.data);
+        setArr1(ser.data.slice(0, 4));
+      })
+      .catch((e) => {});
+  }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `https://sb3aat.onrender.com/api/services/category/65f19983a8fbab9c153785c3`
+      )
+      .then((ser) => {
+        console.log(ser.data);
+        setArr2(ser.data.slice(0, 4));
+      })
+      .catch((e) => {});
+  },[])
+  
   return (
     <>
       {/* <Header /> */}
       <Hero />
-      <Card />
+      <CustomCard />
+      <div className="p-5 mt-10 bg-zinc-200">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        {prdArr.map((s) => {
-          return (
-            <div className="flex justify-center items-center h-screen bg-white">
-              <div
-                className="max-w-lg relative z-10"
-                style={{ height: "18rem" }}
-              >
-                <Carousel autoSlide={true}>
-                  {[...s.imgSrc.map((s) => <img src={s} />)]}
-                </Carousel>
-                <h1 style={{ color: "white" }}>{s.title}</h1>
-              </div>
-            </div>
-          );
-        })}
+      <FourthCards title="Web Development Services" arr={arr} />
+      <FourthCards title="Web Development Services" arr={arr1} />
+      <FourthCards title="Web Development Services" arr={arr} />
+      <FourthCards title="Web Development Services" arr={arr1} />
       </div>
-      {/* <div> */}
-      {/* <About /> */}
-      {/* </div> */}
+
     </>
   );
 }

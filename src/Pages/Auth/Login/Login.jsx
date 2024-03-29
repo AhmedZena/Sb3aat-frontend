@@ -22,68 +22,68 @@ export default function Login() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await axios.post(
+      // First API Call: User Login
+      const loginResponse = await axios.post(
         `${process.env.baseUrl}/auth/login`,
         formData
       );
-      console.log(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      // const response2 = await axiosInstance.get(`/auth/profile`);
-      // console.log(response2.data);
+      console.log(loginResponse.data.token);
+      localStorage.setItem("token", loginResponse.data.token);
 
-      axiosInstance
-        .get("/auth/profile")
-        .then((response) => {
-          dispatch(changeRole(response.data.role));
-          dispatch(changeUser(response.data));
-          console.log(response.data);
-          //   redirect to the profile
-          navigate("/profile");
-        })
-        .catch((error) => {
-          console.error("There was an error!", error);
-        });
-      // Redirect the user after successful registration, for example to the login page
+      // Set the token for subsequent requests
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `${loginResponse.data.token}`;
+
+      // Second API Call: Fetch User Profile
+      const profileResponse = await axiosInstance.get("/auth/profile");
+      dispatch(changeRole(profileResponse.data.role));
+      dispatch(changeUser(profileResponse.data));
+      console.log(profileResponse.data);
+
+      // Navigate to profile
+      navigate("/profile");
     } catch (error) {
-      console.error("login failed:", error);
+      console.error("There was an error!", error);
     }
   };
 
   return (
-    <div className="w-full min-h-screen flex items-start p-4 ">
-      <div className="relative w-1/2 h-full flex flex-col">
+    <div className="flex items-start w-full min-h-screen p-4 ">
+      <div className="relative flex flex-col w-1/2 h-full">
         <div className="absolute top-[20%] left-[10%] flex flex-col">
-          <h1 className="text-4xl text-white font-bold my-4">
+          <h1 className="my-4 text-4xl font-bold text-white">
             Turn Your Ideas into reality
           </h1>
-          <p className="text-xl text-white font-normal">
+          <p className="text-xl font-normal text-white">
             Start for free and get attractive offers from our community
           </p>
         </div>
         <img
           src="https://i.pinimg.com/564x/e0/fa/74/e0fa74f3970db4a792aff43cd0b3f713.jpg"
-          className=" w-full h-full object-cover"
+          className="object-cover w-full h-full "
         />
       </div>
 
       <div className="w-1/2 h-full bg-[#f5f5f5] flex flex-col p-20 justify-between items-center">
         <div className="w-full flex flex-col max-w-[500px] ml-3 ">
-          <div className="w-full flex flex-col mb-3">
-            <h3 className="text-3xl font-semibold mb-4">Login</h3>
-            <p className="text-base mb-2">
+          <div className="flex flex-col w-full mb-3">
+            <h3 className="mb-4 text-3xl font-semibold">Login</h3>
+            <p className="mb-2 text-base">
               Welcome Back! Please enter your details.
             </p>
           </div>
 
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full text-black py-3 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full py-3 my-2 text-black bg-transparent border-b border-black outline-none focus:outline-none"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -92,24 +92,24 @@ export default function Login() {
             <input
               type="password"
               placeholder="Enter your password"
-              className="w-full text-black py-3 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full py-3 my-2 text-black bg-transparent border-b border-black outline-none focus:outline-none"
               name="password"
               value={formData.password}
               onChange={handleChange}
             />
           </div>
 
-          <div className="w-full flex items-center justify-between">
-            <div className="w-full flex items-center">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center w-full">
               <input type="checkbox" className="w-4 h-4 mr-2" />
               <p className="text-sm">Remember me</p>
             </div>
-            <p className="text-sm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2 m-2">
+            <p className="m-2 text-sm font-medium underline cursor-pointer whitespace-nowrap underline-offset-2">
               Forget password?
             </p>
           </div>
 
-          <div className="w-full flex flex-col my-4">
+          <div className="flex flex-col w-full my-4">
             <button
               className="w-full text-white my-2 font-semibold bg-[#060606] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
               onClick={handleSignUp}
@@ -117,12 +117,15 @@ export default function Login() {
               Login
             </button>
 
-            <button className="w-full text-[#060606] my-2 font-semibold  bg-white border border-black/40 rounded-md p-4 text-center flex items-center justify-center cursor-pointer">
+            <button
+              className="w-full text-[#060606] my-2 font-semibold  bg-white border border-black/40 rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
+              onClick={() => navigate("/register")}
+            >
               Register
             </button>
           </div>
 
-          <div className="w-full flex items-center justify-center relative py-2">
+          <div className="relative flex items-center justify-center w-full py-2">
             <div className="w-full h-[1px] bg-black"></div>
             <p className="text-lg absolute text-black/80 bg-[#f5f5f5]">OR</p>
           </div>
@@ -138,10 +141,10 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="w-full flex items-center justify-center">
+        <div className="flex items-center justify-center w-full">
           <p className="text-sm font-normal text-[#060606]">
             Don’t have any account ?
-            <span className="font-semibold underline underline-offset-2 cursor-pointer m-1">
+            <span className="m-1 font-semibold underline cursor-pointer underline-offset-2">
               Sign up
             </span>
           </p>

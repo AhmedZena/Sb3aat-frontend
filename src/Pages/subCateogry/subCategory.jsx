@@ -12,20 +12,23 @@ export default function SubCategory() {
 
   useEffect(() => {
     axios
-      .get(`https://sb3aat.onrender.com/api/subCategories/category/${categoryId}`)
+      .get(
+        `https://sb3aat.onrender.com/api/subCategories/category/${categoryId}`
+      )
       .then((response) => {
+        console.log(response.data);
         // Check if response data contains subCategories array before setting state
-        if (Array.isArray(response.data.subCategories)) {
-          setSubCategories(response.data.subCategories);
+        if (Array.isArray(response.data)) {
+          setSubCategories(response.data[0]);
         } else {
-          console.error("Subcategories data is not an array:", response.data.subCategories);
+          console.error("Subcategories data is not an array:", response.data);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   }, [categoryId]);
-  
+
   return (
     <>
       <div className="container text-center text-black contents bg-zinc-900">
@@ -54,7 +57,11 @@ export default function SubCategory() {
             <Col key={index}>
               <Card className="h-100 d-flex flex-column">
                 <Card.Body className="d-flex flex-column justify-content-between">
-                  <Card.Img variant="top" src={subCategory.subCatImgSrc} className="w-full h-80" />
+                  <Card.Img
+                    variant="top"
+                    src={subCategory.subCatImgSrc}
+                    className="w-full h-52"
+                  />
                   <Card.Title>{subCategory.name}</Card.Title>
                   <Card.Text>{subCategory.description}</Card.Text>
                   <div className="flex gap-3">
