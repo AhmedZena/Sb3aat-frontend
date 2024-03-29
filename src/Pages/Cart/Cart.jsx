@@ -88,7 +88,7 @@ export default function Cart() {
                         {order.service.title}
                       </span>
                       <img
-                        className="w-32 h-20 mt-2 ml-2"
+                        className="w-40 h-28 mt-2 ml-2"
                         src={order.service.serviceImgSrc}
                         alt="Service"
                       />
@@ -99,7 +99,7 @@ export default function Cart() {
                         {order.course.Title}
                       </span>
                       <img
-                        className="w-32 h-20 mt-2 ml-2"
+                        className="w-40 h-28 mt-2 ml-2"
                         src={order.course.CourseImg}
                         alt="Course"
                       />
