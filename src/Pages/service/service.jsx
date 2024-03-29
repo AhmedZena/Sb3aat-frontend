@@ -3,22 +3,34 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import { FaFacebookSquare, FaLinkedin, FaTwitterSquare, FaTelegram, FaWhatsapp } from "react-icons/fa";
+import {
+  FaFacebookSquare,
+  FaLinkedin,
+  FaTwitterSquare,
+  FaTelegram,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import { IoIosMan } from "react-icons/io";
 import { IoTimeOutline } from "react-icons/io5";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function Service() {
   const [service, setService] = useState({});
   const [owner, setOwner] = useState({});
+  const navigate = useNavigate();
+  const [numOrdered, setNumOrdered] = useState(1); // [1, 2, 3, 4]
   const { id } = useParams();
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const serviceResponse = await axios.get(`https://sb3aat.onrender.com/api/services/service/${id}`);
+        const serviceResponse = await axios.get(
+          `https://sb3aat.onrender.com/api/services/service/${id}`
+        );
         console.log(serviceResponse.data);
         setService(serviceResponse.data);
       } catch (error) {
@@ -28,7 +40,9 @@ export default function Service() {
 
     const fetchOwner = async () => {
       try {
-        const ownerResponse = await axios.get(`https://sb3aat.onrender.com/api/auth/getUserById/${service.freelancerId}`);
+        const ownerResponse = await axios.get(
+          `https://sb3aat.onrender.com/api/auth/getUserById/${service.freelancerId}`
+        );
         console.log(ownerResponse.data);
         setOwner(ownerResponse.data);
       } catch (error) {
@@ -42,6 +56,29 @@ export default function Service() {
     }
   }, [id, service.freelancerId]);
 
+  //   function to post add to cart
+  const addToCart = async () => {
+    try {
+      const response = await axios.post(
+        `https://sb3aat.onrender.com/api/orders`,
+        {
+          serviceOrCourseId: service._id,
+          clientId: user._id,
+          //   "freelancerId": "65b41665e977b0dc489a9c81",
+          //   orderDate: "06/07/2023",
+          orderDate: new Date(),
+          deliveryDate: "07/07/2023",
+          numsOrdered: numOrdered,
+          totalPrice: service.price * numOrdered,
+        }
+      );
+      console.log(response.data);
+      navigate("/cart");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="container mx-auto ">
@@ -49,7 +86,7 @@ export default function Service() {
           <h2 className="m-5 text-3xl">{service.title}</h2>
           <div className="flex items-center">
             <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
-              Order Now
+              Add To Cart
             </button>
             <Link to={`/message/${service.freelancerId}`}>
               <button className="px-4 py-2 ml-4 font-bold text-white bg-green-500 rounded hover:bg-green-700">
@@ -69,17 +106,25 @@ export default function Service() {
               className="rounded-lg w-full h-[900px] "
               alt="guarantee"
             />
-            <p className="mt-10 mb-10 text-3xl font-bold text-center ">{service.description}</p>
+            <p className="mt-10 mb-10 text-3xl font-bold text-center ">
+              {service.description}
+            </p>
           </div>
           <div className="p-3 mt-2 card">
             <h2 className="text-2xl font-bold card-title">Buy The service</h2>
             <div className="p-4 mx-auto card-body">
               <form className="flex items-center max-w-sm gap-3">
-                <p htmlFor="countries" className="text-lg font-medium text-gray-900 ">
+                <p
+                  htmlFor="countries"
+                  className="text-lg font-medium text-gray-900 "
+                >
                   Nums Ordered
                 </p>
                 <select
-                  id="countries"
+                  id="num orderd"
+                  name="num orderd"
+                  value={numOrdered}
+                  onChange={(e) => setNumOrdered(e.target.value)}
                   className="p-2 text-2xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="1" selected>
@@ -91,12 +136,17 @@ export default function Service() {
                 </select>
                 <p className="text-lg font-medium text-gray-900 ">
                   Cost:
-                  <span>7$</span>
+                  <span>
+                    {service.price ? service.price * numOrdered : "0"}$
+                  </span>
                 </p>
               </form>
             </div>
-            <button className="w-1/3 px-4 py-3 mx-auto font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
-              Order Now
+            <button
+              className="w-1/3 px-4 py-3 mx-auto font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+              onClick={addToCart}
+            >
+              Add To Cart
             </button>
           </div>
 
@@ -190,7 +240,9 @@ export default function Service() {
                 alt="client"
               />
               <div className="w-1/2 mt-4 ml-2">
-                <p className="font-bold text-gray-700 card-text">mahmoud saad</p>
+                <p className="font-bold text-gray-700 card-text">
+                  mahmoud saad
+                </p>
                 <p className="flex items-center justify-between w-1/2 text-gray-700 card-text ">
                   <span className="flex items-center ">
                     <IoIosMan />
@@ -215,7 +267,9 @@ export default function Service() {
               <h2 className="text-2xl font-bold card-title">Card service</h2>
               <hr className="bg-gray-300" />
               <div className="flex items-center justify-between my-4 text-yellow-500">
-                <p className="mr-2 font-bold text-gray-700 card-text ">Rating</p>
+                <p className="mr-2 font-bold text-gray-700 card-text ">
+                  Rating
+                </p>
                 <div>
                   <StarIcon />
                   <StarIcon />
@@ -252,7 +306,9 @@ export default function Service() {
                 <p className="mr-2 font-bold text-gray-700 card-text">
                   Delivery time
                 </p>
-                <p className="text-gray-700 card-text">{service.deliveryTime} </p>
+                <p className="text-gray-700 card-text">
+                  {service.deliveryTime}{" "}
+                </p>
               </div>
             </div>
             <hr className="bg-gray-300" />
@@ -261,26 +317,25 @@ export default function Service() {
               <h2 className="text-2xl font-bold card-title">Service owner</h2>
               <div className="flex items-center justify-between my-4 ">
                 <div className="flex items-center">
-                {owner && owner.profilePhoto && owner.profilePhoto.url &&(
-
+                  {owner && owner.profilePhoto && owner.profilePhoto.url && (
                     <div className="ml-2">
-                    <img
-                      src={owner.profilePhoto.url}
-                      className="w-12 h-12 rounded-full"
-                      alt="Owner"
-                    />
-                    <p className="font-bold text-gray-700 card-text">
-                      {owner.username}
-                    </p>
-                    <p className="flex items-center justify-center text-gray-700 card-text ">
-                      <AiFillSafetyCertificate />
-                      <span>
-                        Verified identity
-                        {/* Ver */}
-                      </span>
-                    </p>
-                  </div>
-                )}
+                      <img
+                        src={owner.profilePhoto.url}
+                        className="w-12 h-12 rounded-full"
+                        alt="Owner"
+                      />
+                      <p className="font-bold text-gray-700 card-text">
+                        {owner.username}
+                      </p>
+                      <p className="flex items-center justify-center text-gray-700 card-text ">
+                        <AiFillSafetyCertificate />
+                        <span>
+                          Verified identity
+                          {/* Ver */}
+                        </span>
+                      </p>
+                    </div>
+                  )}
                 </div>
                 {/* contact freelancer */}
                 <Link to={`/message/${service.freelancerId}`}>
