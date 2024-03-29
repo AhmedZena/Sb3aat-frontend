@@ -7,15 +7,14 @@ export default function Cart() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
- const { user } = useSelector((state) => state.user);
- 
-  console.log({ user });
+  const { user } = useSelector((state) => state.user);
 
+  console.log({ user });
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = localStorage.getItem("token"); 
+        const token = localStorage.getItem("token");
 
         if (!token) {
           setError("No token found");
@@ -23,11 +22,14 @@ export default function Cart() {
         }
 
         // Send token to server for verification
-        const response = await axios.get(`${process.env.baseUrl}/orders/client/${user._id}`, {
-          headers: {
-            Authorization: `${token}`, 
-          },
-        });
+        const response = await axios.get(
+          `${process.env.baseUrl}/orders/client/${user._id}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
 
         // Set orders data if request is successful
         if (response.data) {
@@ -73,9 +75,28 @@ export default function Cart() {
           <tbody>
             {orders.map((order, index) => (
               <tr key={index} className="h-40">
-                <td><img src ={order.service.serviceImg}/></td>
+                {order.service ? (
+                  <td>
+                    {order.service.title}
+                    <img className=" h-32" src={order.service.serviceImgSrc} />
+                  </td>
+                ) : order.course ? (
+                  <td>
+                    {order.course.Title}
+                    <img className=" h-32" src={order.course.CourseImg} />
+                  </td>
+                ) : null}
                 <td>{order.totalPrice}</td>
-                <td>{order.numsOrdered}</td>
+                {order.service ? (
+                  <td>
+                    {order.numsOrdered}
+                    <input type="number" />
+                  </td>
+                ) : order.course ? (
+                  <td>
+                   {order.numsOrdered}
+                  </td>
+                ) : null}
                 <td>{order.isPaid}</td>
               </tr>
             ))}
@@ -83,7 +104,10 @@ export default function Cart() {
         </table>
 
         <div className="flex justify-center">
-          <Link to="/pay" className="bg-green-500 text-white px-4 py-2 rounded-md">
+          <Link
+            to="/pay"
+            className="bg-green-500 text-white px-4 py-2 rounded-md"
+          >
             Pay
           </Link>
         </div>
