@@ -29,48 +29,86 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 import { CreateCourse } from "./Pages/courses/CreateCourse.jsx";
+import axios from "axios";
+// socket io
+import { useEffect } from "react";
+import { io } from "socket.io-client";
+// import { setNotifications } from "./Store/slices/notifications.js";
+import { useDispatch } from "react-redux";
+import { addNotification } from "./Store/slices/notifications.js";
+import { useFetchNotifications } from "../utils/getNotifications.js";
+
+// toastify
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 
 function App() {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Navbar />
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
+  const dispatch = useDispatch();
+  const fetchNotifications = useFetchNotifications();
+  // function to fetch notifications
 
-          <Route path="/services/:categoryId" element={<Services />}></Route>
-          <Route path="/service/:id" element={<Service />}></Route>
-          <Route path="/profile" element={<Profile />}>
-            <Route index element={<PersonalProfile />} />
-            <Route path="myServices" element={<Myservices />} />
-          </Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route
-            path="/subCategories/:categoryId"
-            element={<SubCategory />}
-          ></Route>
-          <Route path="/categories" element={<Categories />}></Route>
-          <Route path="/courses/:categoryId" element={<Courses />}>
-            <Route index element={<Courses />} />
-            <Route path=":id" element={<Courses />} />
-          </Route>
-          <Route path="/course" element={<Course />} />
-          <Route path="/createService" element={<CreateService />}></Route>
-          <Route path="/createCourse" element={<CreateCourse />}></Route>
-          <Route path="/notifications" element={<Notifications />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/message/:id" element={<Message />} />
-          <Route path="/messages/:id" element={<Msg />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/pay" element={<Payment />} />
-          <Route path="/paypal" element={<Paypal />} />
-        </Routes>
-        {/* <SubCategory /> */}
-        <Footer />
-      </BrowserRouter>
-    </Provider>
+  useEffect(() => {
+    //
+    fetchNotifications();
+
+    const socket = io("http://localhost:8800", { transports: ["websocket"] });
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+
+    //    const socket = io(SOCKET_SERVER_URL, { transports: ["websocket"] });
+
+    // Listen for new notifications from the server
+    socket.on("newNotification", (newNotification) => {
+      dispatch(addNotification(newNotification));
+      toast.success(newNotification.message);
+    });
+    socket.on("disconnect", () => {
+      console.log("disconnected");
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+
+        <Route path="/services/:categoryId" element={<Services />}></Route>
+        <Route path="/service/:id" element={<Service />}></Route>
+        <Route path="/profile" element={<Profile />}>
+          <Route index element={<PersonalProfile />} />
+          <Route path="myServices" element={<Myservices />} />
+        </Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route
+          path="/subCategories/:categoryId"
+          element={<SubCategory />}
+        ></Route>
+        <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/courses/:categoryId" element={<Courses />}>
+          <Route index element={<Courses />} />
+          <Route path=":id" element={<Courses />} />
+        </Route>
+        <Route path="/course" element={<Course />} />
+        <Route path="/createService" element={<CreateService />}></Route>
+        <Route path="/createCourse" element={<CreateCourse />}></Route>
+        <Route path="/notifications" element={<Notifications />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/message/:id" element={<Message />} />
+        <Route path="/messages/:id" element={<Msg />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pay" element={<Payment />} />
+        <Route path="/paypal" element={<Paypal />} />
+      </Routes>
+      {/* <SubCategory /> */}
+      <Footer />
+    </BrowserRouter>
   );
 }
 
