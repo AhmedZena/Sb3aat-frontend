@@ -7,6 +7,8 @@ import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const { categoryId } = useParams();
+  const [search, setSearch] = useState("");
+  const [subcategory, setSubCategory] = useState([]);
 
   useEffect(() => {
     axios
@@ -19,90 +21,103 @@ export default function Courses() {
       });
   }, [categoryId]);
 
+  // Filter courses based on search input
+  const filteredCourses = courses.filter((course) =>
+    course.title.toLowerCase().includes(search.toLowerCase())
+  );
+  useEffect(() => {
+    axios
+      .get(`https://sb3aat.onrender.com/api/subCategories/`)
+      .then((response) => {
+        // Assuming the response data is an array or an object with a property named 'subCategories'
+        // Make sure to adjust this based on the actual response structure
+        if (Array.isArray(response.data)) {
+          setSubCategory(response.data);
+        } else if (
+          response.data.subCategories &&
+          Array.isArray(response.data.subCategories)
+        ) {
+          setSubCategory(response.data.subCategories);
+        } else {
+          console.error(
+            "Unexpected response format for subcategories:",
+            response.data
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
-    <div className="w-full p-3 bg-zinc-200">
+    <div className="flex w-full p-3 pb-64 bg-zinc-200">
+      <div className="w-1/4 p-5 text-gray-900 bg-zinc-200">
+        <h1 className="mb-5 text-2xl font-bold">Sub Categories</h1>
+        <div className="mt-3">
+              <div class="flex items-center justify-center">
+                <input
+                  type="search"
+                  class="w-full px-4 py-2 mt-2 text-gray-800 rounded-lg border border-gray-300 focus:outline-none focus:border-green-700"
+                  placeholder="Search"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+             
+              </div>
+            </div>
+        {subcategory.map((sub) => (
+          <ul key={sub._id} className="list-none ">
+            <li className="mt-3 font-bold hover:text-green-600">
+              <Link  to={`/courses/${sub._id}`}>{sub.name}</Link>
+            </li>
+          </ul>
+        ))}
+      </div>
+ 
+      <div className="container mx-auto mt-5">
       <div className="text-white bg-gray-900">
         <div className="container h-[300px] mx-auto">
           <h1 className="p-10 text-6xl font-bold">My Learning</h1>
           <div className="pb-3 mx-5 mt-28">
-            <Link
+            <h2
               to="/courses"
-              className="mr-5 text-lg font-bold text-white border-b-2 border-b-orange-400"
+              className="mr-5 text-2xl font-bold text-white border-b-2 border-b-orange-400"
             >
               All Courses
-            </Link>
-            <Link
-              to="/my-list"
-              className="mr-5 text-lg font-bold text-white border-b-2 border-b-orange-400"
-            >
-              My List
-            </Link>
-            <Link
-              to="/archived"
-              className="mr-5 text-lg font-bold text-white border-b-2 border-b-orange-400"
-            >
-              Archived
-            </Link>
+            </h2>
           </div>
         </div>
       </div>
-      <div className="container mx-auto mt-5">
-        <div className="flex filters">
-          <div>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-simple-select-helper-label">Sort by</InputLabel>
-              <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                label="Sort by"
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Recent add</MenuItem>
-                <MenuItem value={20}>Price</MenuItem>
-                <MenuItem value={30}>Total hours</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-          <div>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-simple-select-helper-label">Categories</InputLabel>
-              <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                label="Categories"
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={"web"}>web</MenuItem>
-                <MenuItem value={"Devops"}>Devops</MenuItem>
-                <MenuItem value={"Data Science"}>Data Science</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </div>
+     
 
-        <Row xs={1} md={2} lg={4} className="g-4">
-          {courses.map((course) => (
+        <Row xs={1} md={2} lg={4} className="mt-16 g-4">
+          {filteredCourses.map((course) => (
             <Col key={course._id}>
-              <Card className="max-w-xs p-4 pb-5 bg-white border-none shadow-xl max-h-120">
+              <Card className="p-4 pb-5 bg-white border-none shadow-xl max-w-100 max-h-120">
                 <Card.Img
                   variant="top"
                   src={course.CourseImg}
-                  className="object-cover w-full h-64"
+                  className="object-cover h-64 w-100"
                 />
-                <Card.Body className="h-41">
-                  <Link to={`/courses/${course._id}`} className="text-decoration-none">
+                <Card.Body className="flex flex-col justify-around h-80">
+                  <Link
+                    to={`/courses/${course._id}`}
+                    className="text-decoration-none"
+                  >
                     <div href="#" className="text-3xl font-bold text-blue-900">
                       {course.title}
                     </div>
                   </Link>
-                  <Card.Text className="font-bold text-l">{course.description}</Card.Text>
-                  <Card.Text className="text-gray-600 text-l">{course.category}</Card.Text>
+                  <Card.Text className="font-bold text-l">
+                    {course.description}
+                  </Card.Text>
+                  <Card.Text className="text-gray-600 text-l">
+                    {course.category}
+                  </Card.Text>
                   <div className="flex items-center">
-                    <span className="text-xl text-yellow-500"> ({course.price}$)</span>
+                    <span className="text-xl text-yellow-500">
+                      {" "}
+                      ({course.price}$)
+                    </span>
                     {[...Array(5)].map((star, i) => (
                       <svg
                         key={i}
@@ -116,9 +131,14 @@ export default function Courses() {
                       </svg>
                     ))}
                   </div>
-                  <meter value="50" min="0" max="100" className="w-full mt-3 "></meter>
+                  <meter
+                    value="50"
+                    min="0"
+                    max="100"
+                    className="w-full mt-3 "
+                  ></meter>
                   <div className="mt-3 text-xl text-center bg-green-500 rounded-3xl hover:text-white hover:scale-110 ">
-                    <Link to={`/courses/${course._id}`}>Start Course</Link>
+                    <Link to={`/course/${course._id}`}>Start Course</Link>
                   </div>{" "}
                 </Card.Body>
               </Card>

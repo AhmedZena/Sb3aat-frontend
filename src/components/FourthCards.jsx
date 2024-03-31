@@ -19,7 +19,7 @@ function FourthCards({ title, arr }) {
       <Row xs={1} md={2} lg={4} className="mx-20 mb-20 g-4">
         {/* Assuming you'll loop through an array of services */}
         {arr.map((item, index) => (
-          <Link to={`/services/${item._id}`}>
+          <Link to={`/service/${item._id}`}>
             <Col key={index}>
               <Card className="max-w-xs border-none max-h-300">
                 <Card.Img
@@ -28,9 +28,9 @@ function FourthCards({ title, arr }) {
                   className="object-cover w-full h-40"
                 />
                 <Card.Body className="flex flex-col justify-between h-52">
-                  <a href="#" className="font-bold text-blue-900 ">
+                  <Link to={`/service/${item._id}`} className="font-bold text-blue-900 ">
                     {item.title}
-                  </a>
+                  </Link>
                 
 
                   <div className="flex items-center">

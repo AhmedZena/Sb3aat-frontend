@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { RiStarSFill } from "react-icons/ri";
 import { FiAlertOctagon } from "react-icons/fi";
 import { FiGlobe } from "react-icons/fi";
@@ -16,12 +17,28 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Link, useParams } from "react-router-dom";
 
 export default function () {
+  const [course, setCourse] = useState({});
+  const { id } = useParams();
+  const [search, setSearch] = useState("");
+  
+  useEffect(() => {
+    axios
+      .get(`https://sb3aat.onrender.com/api/courses/${id}`)
+      .then((response) => {
+        setCourse(response.data);
+        console.log(id)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
   return (
     <>
       <div className="w-full h-96 bg-[#2D2F31] relative ">
-        <div className="container pl-20 inline-block">
+        <div className="container inline-block pl-20">
           <div className="pt-10">
             <a href="#!" className="font-semibold text-[#C0C4FC] mr-3">
               Teaching & Academics
@@ -36,12 +53,11 @@ export default function () {
             </a>
           </div>
           <div className="mt-10 ">
-            <h1 className="font-bold text-white text-3xl">
-              Partial Differential Equations: Comprehensive Course
+            <h1 className="text-3xl font-bold text-white">
+              {course.title}
             </h1>
-            <p className="font-normal text-white mt-8 text-xl">
-              PDE solved by Fourier Transform, Fourier Series, method of
-              separation of variables <br />+ section on uncertainty principle
+            <p className="mt-8 text-xl font-normal text-white">
+             {course.description}
             </p>
           </div>
           <div className="inline-block m-7">
@@ -67,13 +83,11 @@ export default function () {
             >
               (58 ratings)
             </a>
-            <p className="font-normal text-white inline-block ml-2">
+            <p className="inline-block ml-2 font-normal text-white">
               5,977 students
             </p>
             <div>
-              <p className="font-normal text-white inline-block ml-3">
-                Created by
-              </p>
+              <p className="inline-block ml-3 font-normal text-white">Created by</p>
               <a
                 href="#"
                 className=" text-[#C0C4FC] m-1 inline-block underline underline-offset-0"
@@ -82,22 +96,20 @@ export default function () {
               </a>
             </div>
             <div className="inline-block m-3">
-              <span className="text-white inline-block">
+              <span className="inline-block text-white">
                 <FiAlertOctagon />
               </span>
-              <p className="font-normal text-white inline-block ml-1">
+              <p className="inline-block ml-1 font-normal text-white">
                 Last updated 10/2023
               </p>
-              <span className="text-white inline-block ml-3">
+              <span className="inline-block ml-3 text-white">
                 <FiGlobe />
               </span>
-              <p className="font-normal text-white inline-block ml-1">
-                English
-              </p>
-              <span className="text-white inline-block ml-3">
+              <p className="inline-block ml-1 font-normal text-white">English</p>
+              <span className="inline-block ml-3 text-white">
                 <PiKeyboardFill />
               </span>
-              <p className="font-normal text-white inline-block ml-1">
+              <p className="inline-block ml-1 font-normal text-white">
                 English [Auto]
               </p>
             </div>
@@ -105,15 +117,15 @@ export default function () {
         </div>
 
         {/* /// card */}
-        <div className="max-w-sm bg-white border border-gray-200  fixed inline-block rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 right-14 top-20 ">
+        <div className="fixed inline-block max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 right-14 top-20 ">
           <a href="https://images.app.goo.gl/W2qegZFAhz2eFwJ2A">
             <img
               className="rounded-t-lg"
-              src="https://img-c.udemycdn.com/course/480x270/3660626_f305_5.jpg"
+              src={course.CourseImg}
               alt=""
             />
           </a>
-          <div className="p-5 items-center">
+          <div className="items-center p-5">
             <a href="#">
               <h5 className="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 E£199.99
@@ -123,9 +135,7 @@ export default function () {
             <span className="text-[#BF4E35] inline-block">
               <CgAlarm />
             </span>
-            <p className="font-bold text-[#BF4E35] inline-block ml-1">
-              16 minutes
-            </p>
+            <p className="font-bold text-[#BF4E35] inline-block ml-1">16 minutes</p>
             <p className="font-normal text-[#BF4E35] inline-block ml-1">
               {" "}
               left at this price!
@@ -155,7 +165,7 @@ export default function () {
             </div>
             <p>30-Day Money-Back Guarantee</p>
             <div>
-              <h2 className="text-black  font-bold mt-2 mb-2 text-2xl">
+              <h2 className="mt-2 mb-2 text-2xl font-bold text-black">
                 This course includes:
               </h2>
               <span className="inline-block mr-1">
@@ -184,10 +194,10 @@ export default function () {
               <p className="inline-block">Certificate of completion</p>
             </div>
             <div className="mb-2">
-              <a className="text-black inline-block font-bold m-2 underline underline-offset-1">
+              <a className="inline-block m-2 font-bold text-black underline underline-offset-1">
                 Share
               </a>
-              <a className="text-black inline-block font-bold m-2 ml-7 underline underline-offset-1">
+              <a className="inline-block m-2 font-bold text-black underline ml-7 underline-offset-1">
                 Apply Coupon
               </a>
             </div>
@@ -196,92 +206,92 @@ export default function () {
       </div>
 
       <div className="mt-10 ml-40">
-        <div className=" w-1/2 bg-white border border-inherit px-8 pt-6 pb-8 mb-4">
-          <h1 className="text-black inline-block font-bold m-2 text-2xl">
+        <div className="w-1/2 px-8 pt-6 pb-8 mb-4 bg-white border border-inherit">
+          <h1 className="inline-block m-2 text-2xl font-bold text-black">
             What you'll learn
           </h1>
 
           <div className="flex">
-            <div className=" mr-4">
-              <p className="font-normal text-sm inline-block ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+            <div className="mr-4 ">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 How to use the Fourier Trasforms to tackle{" "}
               </p>
-              <p className="font-normal text-sm ml-1">
+              <p className="ml-1 text-sm font-normal">
                 the problem of solving PDE's
               </p>
-              <p className="font-normal inline-block text-sm ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 Method of separation of variables to solve{" "}
               </p>
-              <p className="font-normal text-sm ml-1">
+              <p className="ml-1 text-sm font-normal">
                 the Heat equation (with exercises)
               </p>
               <br />
-              <p className="font-normal inline-block text-sm ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 Method of separation of variables to solve{" "}
               </p>
-              <p className="font-normal text-sm ml-1">
+              <p className="ml-1 text-sm font-normal">
                 the Heat equation (with exercises)
               </p>
-              <p className="font-normal  inline-block text-sm ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 Mathematical tricks
               </p>
             </div>
 
-            <div className=" ">
-              <p className="font-normal text-sm inline-block ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+            <div className="">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 Fourier Transforms in one and multiple dimensions{" "}
               </p>
-              <p className="font-normal inline-block text-sm ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 Method of separation of variables to solve{" "}
               </p>
-              <p className="font-normal text-sm ml-1">
+              <p className="ml-1 text-sm font-normal">
                 the Laplace equation in cartesian and polar
               </p>
-              <p className="font-normal text-sm ml-1">
+              <p className="ml-1 text-sm font-normal">
                 coordinates (with exercises)
               </p>
               <br />
-              <p className="font-normal inline-block text-sm ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 concept of streamlines{" "}
               </p>
               <br />
-              <p className="font-normal  inline-block text-sm ml-1">
-                <span className="text-black font-bold text-lg inline-block">
+              <p className="inline-block ml-1 text-sm font-normal">
+                <span className="inline-block text-lg font-bold text-black">
                   <BiCheck />
                 </span>
                 How to derive Heisenberg Uncertainty
               </p>
-              <p className="font-normal text-sm ml-1">
+              <p className="ml-1 text-sm font-normal">
                 Principle using concepts of Probability
               </p>
-              <p className="font-normal text-sm ml-1">Theory</p>
+              <p className="ml-1 text-sm font-normal">Theory</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className=" mt-10 ml-40 mb-10">
+      <div className="mt-10 mb-10 ml-40 ">
         <Accordion className="w-1/2">
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -293,7 +303,7 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a
@@ -303,7 +313,7 @@ export default function () {
                 Fourier series
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a
@@ -313,14 +323,14 @@ export default function () {
                 Fourier Transforms
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 How to interpret improper integrals of sinusoids
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a
@@ -330,7 +340,7 @@ export default function () {
                 Dirac delta
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a
@@ -340,7 +350,7 @@ export default function () {
                 Multiple Fourier Transforms
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -361,35 +371,35 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Gradient and Laplacian: quick summary
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Example of pde
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Solution to the pde part 1
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Solution to the pde part 2
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -409,14 +419,14 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Physics behind the equation part 1
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -436,56 +446,56 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Setup of the diffusion problem
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Integral equation satisfied by the function f(x,t)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Diffusion equation
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Some possible boundary conditions of the diffusion equation
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Solution of the diffusion equation part 1
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Solution of the diffusion equation part 2
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal">
                 Solution of the diffusion equation part 3
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -505,7 +515,7 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -525,12 +535,11 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
-                Non linear first order PDE solved with the method of
-                characteristics
+                Non linear first order PDE solved with the method of characteristics
               </a>
             </ul>
           </AccordionDetails>
@@ -546,21 +555,21 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Separation of variables to solve the heat equation (part 1)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Separation of variables to solve the heat equation (part 2)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -580,42 +589,42 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Laplace Equation in Cartesian Coordinates (exercise)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Laplace Equation in Polar coordinates (exercise 1)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Laplace Equation in Polar coordinates (exercise 2)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Laplace Equation in Polar coordinates (exercise 3)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Laplace Equation in Polar coordinates (exercise 4)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -635,21 +644,21 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Nonhomogeneous Heat Equation: Exercise 1
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Nonhomogeneous Heat Equation: Exercise 2
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
@@ -669,28 +678,28 @@ export default function () {
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Nonhomogeneous Wave Equation (Exercise 1)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Nonhomogeneous Wave Equation: D'Alambert formula
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">
                 Solving a wave equation using D'Alambert formula (exercise)
               </a>
               <br />
-              <span className="inline-block font-normal mr-3">
+              <span className="inline-block mr-3 font-normal">
                 <LuMonitorPlay />
               </span>
               <a href="#" className="inline-block font-normal ">

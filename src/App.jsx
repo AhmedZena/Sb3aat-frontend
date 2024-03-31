@@ -95,7 +95,7 @@ function App() {
           <Route index element={<Courses />} />
           <Route path=":id" element={<Courses />} />
         </Route>
-        <Route path="/course" element={<Course />} />
+        <Route path="/course/:id" element={<Course />} />
         <Route path="/createService" element={<CreateService />}></Route>
         <Route path="/createCourse" element={<CreateCourse />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
