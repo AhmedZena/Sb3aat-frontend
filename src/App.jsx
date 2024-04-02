@@ -27,7 +27,7 @@ import { Provider } from "react-redux";
 import store from "./Store/store.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-
+import Search from "./Pages/Search/search"
 import { CreateCourse } from "./Pages/courses/CreateCourse.jsx";
 
 function App() {
@@ -66,6 +66,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/pay" element={<Payment />} />
           <Route path="/paypal" element={<Paypal />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/search/:searchWord" element={<Search />} />
         </Routes>
         {/* <SubCategory /> */}
         <Footer />
