@@ -20,7 +20,8 @@ export default function BackgroundBlogCard() {
 
   return (
     <>
-      <div className="grid grid-cols-4  justify-center ">
+    <div>
+    <div className="grid justify-center grid-cols-4 ">
         {categories.map((category, index) => (
           <Card
             onClick={() => navigate(`/subCategories/${category._id}`)}
@@ -40,7 +41,7 @@ export default function BackgroundBlogCard() {
                 className="absolute z-10 w-5/6 h-5/6 rounded-xl"
               />
 
-              <div className="to-bg-black-10 z-20 absolute rounded-xl w-5/6 h-5/6 bg-black bg-opacity-50" />
+              <div className="absolute z-20 w-5/6 bg-black bg-opacity-50 to-bg-black-10 rounded-xl h-5/6" />
             </CardBody>
             <Typography
               variant="h4"
@@ -52,6 +53,9 @@ export default function BackgroundBlogCard() {
           </Card>
         ))}
       </div>
+    
+    </div>
+     
     </>
   );
 }
@@ -96,7 +100,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 //   <Card
@@ -116,7 +120,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 //   <Card
@@ -136,7 +140,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 // </div>
@@ -159,7 +163,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 //   <Card
@@ -179,7 +183,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 //   <Card
@@ -199,7 +203,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 // </div>
@@ -222,7 +226,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 //   <Card
@@ -242,7 +246,7 @@ export default function BackgroundBlogCard() {
 //       >
 //         How world!
 //       </Typography>
-//       <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+//       <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-t from-black/80 via-black/50" />
 //     </CardBody>
 //   </Card>
 

@@ -66,8 +66,8 @@ export default function Cart() {
   }
 
   return (
-    <div className="container mx-auto px-4 mt-12 mb-4">
-      <div className="bg-gray-100 py-8 px-6 rounded-md shadow-lg">
+    <div className="container px-4 mx-auto mt-12 mb-4">
+      <div className="px-6 py-8 bg-gray-100 rounded-md shadow-lg">
         <table className="w-full">
           <thead>
             <tr className="border-b border-gray-300">
@@ -131,7 +131,7 @@ export default function Cart() {
                 <td className="py-4">
                   <button
                     onClick={() => handleDeleteOrder(index)}
-                    className="text-red-500 font-bold hover:text-red-700"
+                    className="font-bold text-red-500 hover:text-red-700"
                   >
                     Delete
                   </button>
@@ -143,7 +143,7 @@ export default function Cart() {
         <div className="flex justify-center mt-6">
           <Link
             to="/pay"
-            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
+            className="px-4 py-2 text-white transition duration-300 bg-green-500 rounded-md hover:bg-green-600"
           >
             Pay
           </Link>

@@ -47,7 +47,7 @@ export default function Login() {
       console.log(profileResponse.data);
 
       // Navigate to profile
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       console.error("There was an error!", error);
     }
