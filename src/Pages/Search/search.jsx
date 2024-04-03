@@ -3,14 +3,16 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import { Row, Col, Card } from "react-bootstrap";
 
 export default function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const {searchWord="" } = useParams();
+  const [searchTerm, setSearchTerm] = useState(searchWord);
   const [services, setServices] = useState([]);
   const [courses, setCourses] = useState([]);
-
+ 
+  console.log(searchWord);
   useEffect(() => {
     if (searchTerm.trim() !== "") {
       axios

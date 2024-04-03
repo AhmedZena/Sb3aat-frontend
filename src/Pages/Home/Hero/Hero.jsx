@@ -52,15 +52,10 @@
 
 
 
-
-
-
-
-
-
 import React, { useState } from "react";
 import { TERipple } from "tw-elements-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -99,18 +94,28 @@ function Hero() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <TERipple>
-            <button
+          {/* <TERipple> */}
+            {/* <button
               className="relative z-[2] rounded-r border-2 border-green-500 px-6 py-2  font-medium uppercase text-white  bg-green-500 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
               type="button"
               id="button-addon3"
-              onClick={handleSearch}
+              
             >
-              Search
-            </button>
-          </TERipple>
+             
+            </button> */}
+           
+          {/* </TERipple> */}
+          <Link 
+    to={`/search/${searchTerm}`} 
+    className="relative z-[2] rounded-r border-2 border-green-500 px-6 py-2 font-medium uppercase text-white bg-green-500 transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+>
+    Search
+</Link>
+
+
         </div>
       </div>
+      
     </div>
   );
 }
