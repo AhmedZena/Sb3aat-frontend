@@ -37,6 +37,7 @@ import { io } from "socket.io-client";
 import { useDispatch } from "react-redux";
 import { addNotification } from "./Store/slices/notifications.js";
 import { useFetchNotifications } from "../utils/getNotifications.js";
+import EditProfile from "./Pages/profile/editProfile.jsx";
 
 // toastify
 // import "react-toastify/dist/ReactToastify.css";
@@ -105,6 +106,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Payment />} />
         <Route path="/paypal" element={<Paypal />} />
+        <Route path="editProfile" element={<EditProfile />} />
       </Routes>
       {/* <SubCategory /> */}
       <Footer />

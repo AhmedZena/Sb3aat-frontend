@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 
 import "./profile.css";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import axiosInstance from "../../axiousConfig/instance";
@@ -32,58 +32,33 @@ export default function Profile() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className=" bg-zink-200 items-center ">
-      <div className=" sec1 bg-gray-100 py-5 rounded-lg">
+    <div className="items-center mx-auto overflow-hidden bg-zink-200">
+      <div className="py-10 bg-gray-100 rounded-lg sec1">
         <div className="text-center">
           {user.profilePhoto && (
             <img
               src={user.profilePhoto.url}
               alt=""
-              className="w-24 h-24 rounded-full mx-auto mb-4"
+              className="mx-auto mt-5 mb-4 rounded-full w-44 h-44"
             />
           )}
-          <h1 className="text-xl font-bold">
-            {user.username} <span className="text-gray-400"> ({role})</span>
+          <h1 className="text-3xl font-bold">
+            {user.username} <span className="text-gray-400 "> ({role})</span>
           </h1>
-          <h3 className="text-gray-800 font-bold">{user.email}</h3>
+          <h3 className="text-3xl font-bold text-gray-800">{user.email}</h3>
           <div className="mt-4">
-            <Button
-              className="bg-green-600 editMyProfile m-3"
-              variant="success"
+            <Link
+            to="/editProfile"
+              className="px-4 m-2 font-bold bg-green-500 bg-green-60 editMyProfile "
+         
             >
               Edit my Profile
-            </Button>
+            </Link>
           </div>
         </div>
-        <div className="Tabs">
-          {role === "freelancer" && (
-            <ul className="list-reset flex border-b rtl:">
-              <li className="-mb-px mr-1">
-                <NavLink
-                  to="/profile"
-                  className="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-dark font-semibold"
-                  style={{ borderBottom: "2px solid transparent" }}
-                  activeStyle={{ borderBottom: "none" }}
-                >
-                  Personal Profile
-                </NavLink>
-              </li>
-
-              <li className="mr-1">
-                <NavLink
-                  to="/profile/myServices"
-                  className="bg-white inline-block py-2 px-4 text-blue hover:text-blue-darker font-semibold"
-                  style={{ borderBottom: "2px solid transparent" }}
-                  activeStyle={{ borderBottom: "none" }}
-                >
-                  My Services
-                </NavLink>
-              </li>
-            </ul>
-          )}
-        </div>
+    
       </div>
-      <div className="container py-5">
+      <div className="m-auto p-auto">
         <div className="row">
           <Outlet />
         </div>
