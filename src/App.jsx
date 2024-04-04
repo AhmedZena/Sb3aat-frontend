@@ -27,7 +27,7 @@ import { Provider } from "react-redux";
 import store from "./Store/store.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import Search from "./Pages/Search/search"
+import Search from "./Pages/Search/search";
 import { CreateCourse } from "./Pages/courses/CreateCourse.jsx";
 import axios from "axios";
 // socket io
@@ -52,7 +52,10 @@ function App() {
     //
     fetchNotifications();
 
-    const socket = io("http://localhost:8800", { transports: ["websocket"] });
+    // const socket = io("http://localhost:8800", { transports: ["websocket"] });
+    const socket = io(process.env.SOCKET_SERVER_URL, {
+      transports: ["websocket"],
+    });
     socket.on("connect", () => {
       console.log("connected");
     });
@@ -78,43 +81,40 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-
-
-          <Route path="/services/:categoryId" element={<Services />}></Route>
-          <Route path="/service/:id" element={<Service />}></Route>
-          <Route path="/profile" element={<Profile />}>
-            <Route index element={<PersonalProfile />} />
-            <Route path="myServices" element={<Myservices />} />
-          </Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route
-            path="/subCategories/:categoryId"
-            element={<SubCategory />}
-          ></Route>
-          <Route path="/categories" element={<Categories />}></Route>
-          <Route path="/courses/:categoryId" element={<Courses />}>
-            <Route index element={<Courses />} />
-            <Route path=":id" element={<Courses />} />
-          </Route>
-          <Route path="/course" element={<Course />} />
-          <Route path="/createService" element={<CreateService />}></Route>
-          <Route path="/createCourse" element={<CreateCourse />}></Route>
-          <Route path="/notifications" element={<Notifications />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/message/:id" element={<Message />} />
-          <Route path="/messages/:id" element={<Msg />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/pay" element={<Payment />} />
-          <Route path="/paypal" element={<Paypal />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="editProfile" element={<EditProfile />} />
-          <Route path="/search/:searchWord" element={<Search />} />
-        </Routes>
-        {/* <SubCategory /> */}
-        <Footer />
-      </BrowserRouter>
-    </Provider>
+        <Route path="/services/:categoryId" element={<Services />}></Route>
+        <Route path="/service/:id" element={<Service />}></Route>
+        <Route path="/profile" element={<Profile />}>
+          <Route index element={<PersonalProfile />} />
+          <Route path="myServices" element={<Myservices />} />
+        </Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route
+          path="/subCategories/:categoryId"
+          element={<SubCategory />}
+        ></Route>
+        <Route path="/categories" element={<Categories />}></Route>
+        <Route path="/courses/:categoryId" element={<Courses />}>
+          <Route index element={<Courses />} />
+          <Route path=":id" element={<Courses />} />
+        </Route>
+        <Route path="/course" element={<Course />} />
+        <Route path="/createService" element={<CreateService />}></Route>
+        <Route path="/createCourse" element={<CreateCourse />}></Route>
+        <Route path="/notifications" element={<Notifications />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/message/:id" element={<Message />} />
+        <Route path="/messages/:id" element={<Msg />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pay" element={<Payment />} />
+        <Route path="/paypal" element={<Paypal />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="editProfile" element={<EditProfile />} />
+        <Route path="/search/:searchWord" element={<Search />} />
+      </Routes>
+      {/* <SubCategory /> */}
+      <Footer />
+    </BrowserRouter>
   );
 }
 
