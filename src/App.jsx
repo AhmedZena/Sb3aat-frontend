@@ -29,15 +29,56 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Search from "./Pages/Search/search"
 import { CreateCourse } from "./Pages/courses/CreateCourse.jsx";
+import axios from "axios";
+// socket io
+import { useEffect } from "react";
+import { io } from "socket.io-client";
+// import { setNotifications } from "./Store/slices/notifications.js";
+import { useDispatch } from "react-redux";
+import { addNotification } from "./Store/slices/notifications.js";
+import { useFetchNotifications } from "../utils/getNotifications.js";
+import EditProfile from "./Pages/profile/editProfile.jsx";
+
+// toastify
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
 
 function App() {
+  const dispatch = useDispatch();
+  const fetchNotifications = useFetchNotifications();
+  // function to fetch notifications
+
+  useEffect(() => {
+    //
+    fetchNotifications();
+
+    const socket = io("http://localhost:8800", { transports: ["websocket"] });
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+
+    //    const socket = io(SOCKET_SERVER_URL, { transports: ["websocket"] });
+
+    // Listen for new notifications from the server
+    socket.on("newNotification", (newNotification) => {
+      dispatch(addNotification(newNotification));
+      toast.success(newNotification.message);
+    });
+    socket.on("disconnect", () => {
+      console.log("disconnected");
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Navbar />
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
+    <BrowserRouter>
+      <Navbar />
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+
 
           <Route path="/services/:categoryId" element={<Services />}></Route>
           <Route path="/service/:id" element={<Service />}></Route>
@@ -67,6 +108,7 @@ function App() {
           <Route path="/pay" element={<Payment />} />
           <Route path="/paypal" element={<Paypal />} />
           <Route path="/search" element={<Search />} />
+          <Route path="editProfile" element={<EditProfile />} />
           <Route path="/search/:searchWord" element={<Search />} />
         </Routes>
         {/* <SubCategory /> */}

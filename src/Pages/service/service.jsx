@@ -100,10 +100,10 @@ export default function Service() {
       <div className="content-center mx-auto mt-2 center d-flex row">
         {/* left side */}
         <div className="mainSec col-xl-8 bg-zinc-200">
-          <div className="p-3 mt-2 card">
+          <div className="items-center p-3 mt-2 card">
             <img
               src={service.serviceImgSrc}
-              className="rounded-lg w-full h-[900px] "
+              className="rounded-lg w-[1000px] h-[700px] "
               alt="guarantee"
             />
             <p className="mt-10 mb-10 text-3xl font-bold text-center ">
@@ -159,7 +159,7 @@ export default function Service() {
                     <Card.Img
                       variant="top"
                       src="https://khamsat.hsoubcdn.com/images/services/858931/958f63c89c0b6509c32c49c5c67e8e6a.jpg"
-                      className="object-cover w-full h-30" // Increase the height here
+                      className="object-cover w-full h-20" // Increase the height here
                     />
                     <Card.Body className="h-40">
                       <a href="#" className="font-bold text-blue-900">

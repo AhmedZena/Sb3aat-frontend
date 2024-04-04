@@ -1,52 +1,51 @@
 import React from "react";
+import { Check ,X ,Star } from 'lucide-react';
 
 export default function PersonalProfile() {
   return (
     <>
-      <div className="row bg-zinc-200 p-20 gap-5">
-        <div className="col-lg-4 ">
-          <div className="mb-5 bg-white p-10 border-1 rounded-md border-gray-100">
-            <h2 className="text-xl font-bold mb-3">Statistics</h2>
+      <div className="gap-5 p-5 mx-auto font-bold row bg-zinc-200">
+      <div className="col-lg-4">
+          <div className="p-10 mb-5 bg-white border-gray-100 h-[400px] rounded-md border-1">
+            <h2 className="mb-3 text-xl font-bold">Statistics</h2>
             <hr className="mb-3" />
-            <div className="">
-              <h2>Ratings</h2>
-              <p>Order completion rate: Not calculated yet</p>
-              <p>Published services: 0</p>
-              <p>Number of clients: 0</p>
-              <p>Average speed of response: Didnt count</p>
-              <p>Date of registration: February 12, 2024</p>
+            <div className="flex flex-col gap-3">
+              <h2 className="flex justify-between">Ratings <span className="flex text-yellow-500"> (1) <Star /><Star /><Star /><Star /><Star /> </span> </h2>
+              <p className="flex justify-between">Order completion rate: <span className="p-1 text-white bg-gray-400">100%</span></p>
+              <p className="flex justify-between">Published services: <span>1</span></p>
+              <p className="flex justify-between">Number of clients: <span>1</span></p>
+              <p className="flex justify-between">Average speed of response: <span>50 min</span></p>
+              <p className="flex justify-between">Date of registration: <span>February 12, 2024</span></p>
             </div>
           </div>
-          <div className=" bg-white p-10 border-1 rounded-md border-gray-100">
+          <div className="p-10 bg-white border-gray-100 rounded-md border-1">
             <h2>Documentations</h2>
-            <hr className="mb-3 " />
-            <p>Email</p>
-            <p>Phone</p>
-            <p>personal identification</p>
+            <hr className="mb-3" />
+            <p className="flex">Email <span className="ml-5 font-bold text-green-500"><Check /></span></p>
+            <p className="flex">Phone number <span className="ml-5 font-bold text-green-500"><Check /></span></p>
+            <p className="flex">Personal identification <span className="ml-5 font-bold text-red-500"><X /></span> </p>
           </div>
         </div>
 
         <div className="col-lg-7">
           <div>
-            <div className="mb-5 bg-white p-10 border-1 rounded-md border-gray-100">
-              <h2 className="text-xl font-bold mb-3">brief about me</h2>
+            <div className="p-10 mb-5 bg-white border-gray-100 rounded-md border-1">
+              <h2 className="mb-3 text-xl font-bold">brief about me</h2>
               <hr className="mb-3" />
               <div className="">
-                <h2>Services</h2>
+                <h2>He did not write a personal profile</h2>
                 <p></p>
               </div>
             </div>
           </div>
           <div>
-            <div className="mb-5 bg-white p-10 border-1 rounded-md border-gray-100">
-              <h2 className="text-xl font-bold mb-3">brief about me</h2>
+            <div className="p-10 mb-5 h-[400px] bg-white border-gray-100 rounded-md border-1">
+              <h2 className="mb-3 text-xl font-bold">My Services</h2>
               <hr className="mb-3" />
               <div className="">
-                <h2>Services</h2>
+             
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-                  reiciendis mollitia earum iusto asperiores explicabo numquam,
-                  labore quis ut distinctio.
+                No services add yet
                 </p>
               </div>
             </div>
