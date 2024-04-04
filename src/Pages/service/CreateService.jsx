@@ -9,7 +9,6 @@ import {
   OutlinedInput,
   Select,
 } from "@mui/material";
-import { Typography, List, ListItem, ListItemText, Paper } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -134,14 +133,14 @@ function CreateService() {
   return (
     <div className="p-5 bg-gray-100">
       {/* first sec */}
-      <div className="mt-3 p-2">
+      <div className="p-2 mt-3">
         <h3 className="text-black">Home</h3>
         <div className="flex items-center justify-between">
           <h2 className="text-3xl">Create New Service</h2>
 
           <div className="flex items-center">
-            <button className="border-2 border-green-500 text-green-500 flex font-bold py-2 px-4 items-center rounded ml-4  hover:bg-green-600 hover:text-white">
-              <FaInfoCircle className="h-5 w-5 mr-2 inline-block" />
+            <button className="flex items-center px-4 py-2 ml-4 font-bold text-green-500 border-2 border-green-500 rounded hover:bg-green-600 hover:text-white">
+              <FaInfoCircle className="inline-block w-5 h-5 mr-2" />
               Advices & Tips for Approval
             </button>
           </div>
@@ -158,7 +157,7 @@ function CreateService() {
             <input
               type="text"
               name="title"
-              className="w-full border-2 border-gray-200 p-2 rounded"
+              className="w-full p-2 border-2 border-gray-200 rounded"
               placeholder="Enter Service Title"
               onChange={handleInputChange}
               value={formData.title}
@@ -175,20 +174,14 @@ function CreateService() {
 
           {/* add categories , subcategories  , it's select input */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Categories</h3>
-            <div className=" mt-2 flex items-center justify-between">
+            <h3 className="font-semibold text-black">Categories</h3>
+            <div className="flex items-center justify-between mt-2 ">
               <div className="w-5/12">
                 <select
-                  className="w-full border-2 border-gray-200   p-2 rounded"
+                  className="w-full p-2 border-2 border-gray-200 rounded"
                   name="category"
                   id="categories"
-                  onChange={(e) => setCategoryId(e.target.value)}
-                  //   onChange={handleInputChange}
-                  //   value={formData.category}
-                >
-                  {/* <option value="1">Select Category</option>
-                  <option value="2">Select Category</option>
-                  <option value="3">Select Category</option> */}
+                  onChange={(e) => setCategoryId(e.target.value)}>
                   {categories.map((category) => (
                     <option value={category._id}>{category.Name}</option>
                   ))}
@@ -196,16 +189,11 @@ function CreateService() {
               </div>
               <div className="w-5/12">
                 <select
-                  className="w-full border-2 border-gray-200   p-2 rounded"
+                  className="w-full p-2 border-2 border-gray-200 rounded"
                   name="subCategoryID"
                   id="subCategoryID"
-                  //   onChange={handleSubCategoryChange}
                   onChange={handleInputChange}
-                  value={formData.subCategoryID}
-                >
-                  {/* <option value="1">Select Sub Category</option>
-                  <option value="2">Select Sub Category</option>
-                  <option value="3">Select Sub Category</option> */}
+                  value={formData.subCategoryID}>
                   {subCategories.map((subCategory) => (
                     <option value={subCategory._id}>{subCategory.name}</option>
                   ))}
@@ -221,9 +209,9 @@ function CreateService() {
 
           {/* description */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Description</h3>
+            <h3 className="font-semibold text-black">Description</h3>
             <textarea
-              className="mt-2 w-full border-2 border-gray-200   p-2 rounded h-52"
+              className="w-full p-2 mt-2 border-2 border-gray-200 rounded h-52"
               placeholder="Enter Description"
               name="description"
               value={formData.description}
@@ -240,10 +228,10 @@ function CreateService() {
 
           {/* imgs  upload */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Enter Images</h3>
+            <h3 className="font-semibold text-black">Enter Images</h3>
             <input
               type="url"
-              className="w-full border-2 border-gray-200   p-2 rounded"
+              className="w-full p-2 border-2 border-gray-200 rounded"
               placeholder="Enter Image URL"
               //   onChange={(e) => {
               //     setSelectedImage(e.target.value);
@@ -262,7 +250,7 @@ function CreateService() {
 
           {selectedImage && (
             <div className="mt-4">
-              <h3 className="text-black font-semibold">Selected Image</h3>
+              <h3 className="font-semibold text-black">Selected Image</h3>
               <img
                 src={selectedImage}
                 alt="selected image"
@@ -273,12 +261,12 @@ function CreateService() {
 
           {/* price , delivery time */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Price & Delivery Time</h3>
-            <div className="mt-2 flex items-center justify-between">
+            <h3 className="font-semibold text-black">Price & Delivery Time</h3>
+            <div className="flex items-center justify-between mt-2">
               <div className="w-5/12">
                 <input
                   type="number"
-                  className="w-full border-2 border-gray-200   p-2 rounded"
+                  className="w-full p-2 border-2 border-gray-200 rounded"
                   placeholder="Enter Price"
                   min="7"
                   name="price"
@@ -288,7 +276,7 @@ function CreateService() {
               </div>
               <div className="w-5/12">
                 <select
-                  className="w-full border-2 border-gray-200   p-2 rounded"
+                  className="w-full p-2 border-2 border-gray-200 rounded"
                   name="deliveryTime"
                   onChange={handleInputChange}
                   value={formData.deliveryTime}
@@ -320,7 +308,7 @@ function CreateService() {
 
           {/* tags , multi select input */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Tags</h3>
+            <h3 className="font-semibold text-black">Tags</h3>
             <FormControl sx={{ m: 1, width: 300 }}>
               <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
               <Select
@@ -357,9 +345,9 @@ function CreateService() {
 
           {/* Buyer Instruction */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Buyer Instruction</h3>
+            <h3 className="font-semibold text-black">Buyer Instruction</h3>
             <textarea
-              className="mt-2 w-full border-2 border-gray-200  p-2 rounded h-52"
+              className="w-full p-2 mt-2 border-2 border-gray-200 rounded h-52"
               placeholder="Enter Buyer Instruction"
               name="buyerInstruction"
               onChange={handleInputChange}
@@ -375,9 +363,9 @@ function CreateService() {
 
           {/* terms and conditions */}
           <div className="mt-4">
-            <h3 className="text-black font-semibold">Terms and Conditions</h3>
+            <h3 className="font-semibold text-black">Terms and Conditions</h3>
 
-            <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+            <div className="flex items-center border border-gray-200 rounded ps-4 dark:border-gray-700">
               <input
                 id="bordered-checkbox-1"
                 type="checkbox"
@@ -387,12 +375,12 @@ function CreateService() {
               />
               <label
                 for="bordered-checkbox-1"
-                className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="w-full py-4 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
               >
                 The service I am offering is legal and does not violate any law
               </label>
             </div>
-            <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+            <div className="flex items-center border border-gray-200 rounded ps-4 dark:border-gray-700">
               <input
                 id="bordered-checkbox-2"
                 type="checkbox"
@@ -402,12 +390,12 @@ function CreateService() {
               />
               <label
                 for="bordered-checkbox-2"
-                className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="w-full py-4 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
               >
                 All the information I provided is correct
               </label>
             </div>
-            <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+            <div className="flex items-center border border-gray-200 rounded ps-4 dark:border-gray-700">
               <input
                 id="bordered-checkbox-3"
                 type="checkbox"
@@ -417,7 +405,7 @@ function CreateService() {
               />
               <label
                 for="bordered-checkbox-3"
-                className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="w-full py-4 text-sm font-medium text-gray-900 ms-2 dark:text-gray-300"
               >
                 I have read and agree to the{" "}
                 <a href="#" className="text-green-500 hover:underline">
@@ -429,7 +417,7 @@ function CreateService() {
           {/* submit */}
           <div className="mt-4">
             <button
-              className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600"
+              className="w-full p-2 text-white bg-green-500 rounded hover:bg-green-600"
               onClick={handleSubmit}
             >
               Add Service
