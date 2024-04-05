@@ -51,48 +51,46 @@ export default function Courses() {
   }, []);
   return (
     <div className="flex w-full p-3 pb-64 bg-zinc-200">
-      <div className="w-1/4 p-5 text-gray-900 bg-zinc-200">
+      <div className="hidden text-gray-900 sm:flex-col sm:flex sm:w-1/4 sm:p-5 sm:bg-zinc-200">
         <h1 className="mb-5 text-2xl font-bold">Sub Categories</h1>
         <div className="mt-3">
-              <div class="flex items-center justify-center">
-                <input
-                  type="search"
-                  class="w-full px-4 py-2 mt-2 text-gray-800 rounded-lg border border-gray-300 focus:outline-none focus:border-green-700"
-                  placeholder="Search"
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-             
-              </div>
-            </div>
+          <div class="flex items-center justify-center">
+            <input
+              type="search"
+              class="w-full px-4 py-2 mt-2 text-gray-800 rounded-lg border border-gray-300 focus:outline-none focus:border-green-700"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
         {subcategory.map((sub) => (
           <ul key={sub._id} className="list-none ">
             <li className="mt-3 font-bold hover:text-green-600">
-              <Link  to={`/courses/${sub._id}`}>{sub.name}</Link>
+              <Link to={`/courses/${sub._id}`}>{sub.name}</Link>
             </li>
           </ul>
         ))}
       </div>
- 
+
       <div className="container mx-auto mt-5">
-      <div className="text-white bg-gray-900">
-        <div className="container h-[300px] mx-auto">
-          <h1 className="p-10 text-6xl font-bold">My Learning</h1>
-          <div className="pb-3 mx-5 mt-28">
-            <h2
-              to="/courses"
-              className="mr-5 text-2xl font-bold text-white border-b-2 border-b-orange-400"
-            >
-              All Courses
-            </h2>
+        <div className="text-white bg-gray-900">
+          <div className="container h-[300px] mx-auto">
+            <h1 className="p-10 text-6xl font-bold">My Learning</h1>
+            <div className="pb-3 mx-5 mt-28">
+              <h2
+                to="/courses"
+                className="mr-5 text-2xl font-bold text-white border-b-2 border-b-orange-400"
+              >
+                All Courses
+              </h2>
+            </div>
           </div>
         </div>
-      </div>
-     
 
-        <Row xs={1} md={2} lg={4} className="mt-16 g-4">
+        <Row xs={1} md={2} lg={3} className="mt-16 g-4">
           {filteredCourses.map((course) => (
             <Col key={course._id}>
-              <Card className="p-4 pb-5 bg-white border-none shadow-xl max-w-100 max-h-120">
+              <Card className="p-4 pb-5 bg-white border-none shadow-xl max-w-120 max-h-120">
                 <Card.Img
                   variant="top"
                   src={course.CourseImg}

@@ -20,42 +20,40 @@ export default function BackgroundBlogCard() {
 
   return (
     <>
-    <div>
-    <div className="grid justify-center grid-cols-4 ">
-        {categories.map((category, index) => (
-          <Card
-            onClick={() => navigate(`/subCategories/${category._id}`)}
-            key={index}
-            shadow={false}
-            className="relative grid h-[18rem] w-11/12 max-w-[25rem] items-end justify-center overflow-hidden text-center hover:scale-105 hover:cursor-pointer transition-transform duration-300 ease-in-out"
-          >
-            <CardBody
-              floated={false}
+      <div>
+        <div className="grid justify-center grid-cols-1 mx-auto md:grid-cols-4 ">
+          {categories.map((category, index) => (
+            <Card
+              onClick={() => navigate(`/subCategories/${category._id}`)}
+              key={index}
               shadow={false}
-              color="transparent"
-              className={`absolute  m-0 h-full w-full  bg-cover bg-center`}
+              className="relative  grid h-[18rem] w-11/12 max-w-[25rem] items-end justify-center overflow-hidden text-center hover:scale-105 hover:cursor-pointer transition-transform duration-300 ease-in-out"
             >
-              <img
-                variant="top"
-                src={category.CatImgSrc}
-                className="absolute z-10 w-5/6 h-5/6 rounded-xl"
-              />
+              <CardBody
+                floated={false}
+                shadow={false}
+                color="transparent"
+                className={`absolute  m-0 h-full w-full  bg-cover bg-center`}
+              >
+                <img
+                  variant="top"
+                  src={category.CatImgSrc}
+                  className="absolute z-10 w-5/6 h-5/6 rounded-xl"
+                />
 
-              <div className="absolute z-20 w-5/6 bg-black bg-opacity-50 to-bg-black-10 rounded-xl h-5/6" />
-            </CardBody>
-            <Typography
-              variant="h4"
-              color="black"
-              className=" z-50  leading-[1.5] text-white  text-center mb-32 "
-            >
-              {category.Name}
-            </Typography>
-          </Card>
-        ))}
+                <div className="absolute z-20 w-5/6 bg-black bg-opacity-50 to-bg-black-10 rounded-xl h-5/6" />
+              </CardBody>
+              <Typography
+                variant="h4"
+                color="black"
+                className=" z-50  leading-[1.5] text-white  text-center mb-32 "
+              >
+                {category.Name}
+              </Typography>
+            </Card>
+          ))}
+        </div>
       </div>
-    
-    </div>
-     
     </>
   );
 }
