@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { changeRole } from "../../../Store/slices/role.js";
 import { changeUser } from "../../../Store/slices/user.js";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 const colors = {
   primary: "#060606",
   background: "#f5f5f5",
@@ -45,11 +46,13 @@ export default function Login() {
       dispatch(changeRole(profileResponse.data.role));
       dispatch(changeUser(profileResponse.data));
       console.log(profileResponse.data);
+      toast.success("you loged in success");
 
       // Navigate to profile
       navigate("/");
     } catch (error) {
       console.error("There was an error!", error);
+      toast.error("faild login");
     }
   };
 

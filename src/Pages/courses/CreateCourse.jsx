@@ -1,5 +1,7 @@
 import { FaInfoCircle } from "react-icons/fa";
 import React, { useState } from "react";
+
+import { ToastContainer, toast } from "react-toastify";
 import {
   Box,
   Chip,
@@ -52,7 +54,9 @@ export function CreateCourse() {
     // maximum 5 tags
     if (event.target.value.length <= 5) {
       setPersonName(event.target.value);
+      
     }
+    toast.success("Course Added Successfully");
   };
 
   return (

@@ -14,6 +14,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
 function CreateService() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -119,13 +120,17 @@ function CreateService() {
         }
       );
       toast.success("Service Added Successfully");
+     
       navigate("/");
 
       console.log(response.data);
+      toast.success("Service Added Successfully");
+
     } catch (error) {
       console.error("There was an error!", error);
       toast.error(error.response.data.message);
       if (error.response.status === 401) {
+        toast.success("Service failed");
         navigate("/login");
       }
     }

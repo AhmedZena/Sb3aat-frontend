@@ -33,7 +33,7 @@ function Hero() {
         <div class="relative flex flex-wrap items-stretch w-full p-2 mb-4 bg-white">
           <input
             type="search"
-            class="relative flex-auto block w-auto min-w-0 p-4 m-0 -ml-2 text-lg  rounded-l focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
+            class="relative flex-auto block w-auto min-w-0 p-2 m-0 -ml-2 text-lg  rounded-l focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
             placeholder="Search"
             aria-label="Search"
             aria-describedby="button-addon3"
