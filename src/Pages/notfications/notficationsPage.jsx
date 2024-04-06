@@ -21,7 +21,7 @@ export default function Notifications() {
   const markAsRead = async (id) => {
     try {
       await axios.patch(
-        `http://localhost:8800/api/notifications/${id}`,
+        `${process.env.SOCKET_SERVER_URL}/api/notifications/${id}`,
         {
           isRead: true,
         },

@@ -8,7 +8,8 @@ export const useFetchNotifications = () => {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8800/api/notifications/user",
+        `${process.env.SOCKET_SERVER_URL}/api/notifications/user`,
+
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -31,7 +32,7 @@ export const useFetchUnreadNotifications = () => {
   const fetchUnreadNotifications = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8800/api/notifications/unread",
+        `${process.env.SOCKET_SERVER_URL}/api/notifications/unread`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),

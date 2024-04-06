@@ -52,7 +52,7 @@ export default function Navbar() {
   const unReadNotificationsApi = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8800/api/notifications/unread",
+        `${process.env.SOCKET_SERVER_URL}/api/notifications/unread`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -133,9 +133,10 @@ export default function Navbar() {
                 </NavLink>
               </div>
             )}
-            
-            {user.role && (
-              <div className="flex items-center mt-3 sm:mt-0 md:mt-0">
+          </div>
+          {user.role && (
+            <>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 m-1 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                 <FaSearch className="mr-4 text-xl text-gray-200 hover:text-white focus:outline-none" />
 
                 <NavLink to="/cart">

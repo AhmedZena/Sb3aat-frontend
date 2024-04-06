@@ -27,7 +27,7 @@ import { Provider } from "react-redux";
 import store from "./Store/store.js";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-
+import Search from "./Pages/Search/search";
 import { CreateCourse } from "./Pages/courses/CreateCourse.jsx";
 import axios from "axios";
 // socket io
@@ -52,7 +52,10 @@ function App() {
     //
     fetchNotifications();
 
-    const socket = io("http://localhost:8800", { transports: ["websocket"] });
+    // const socket = io("http://localhost:8800", { transports: ["websocket"] });
+    const socket = io(process.env.SOCKET_SERVER_URL, {
+      transports: ["websocket"],
+    });
     socket.on("connect", () => {
       console.log("connected");
     });
@@ -78,7 +81,6 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-
         <Route path="/services/:categoryId" element={<Services />}></Route>
         <Route path="/service/:id" element={<Service />}></Route>
         <Route path="/profile" element={<Profile />}>
@@ -96,7 +98,7 @@ function App() {
           <Route index element={<Courses />} />
           <Route path=":id" element={<Courses />} />
         </Route>
-        <Route path="/course/:id" element={<Course />} />
+        <Route path="/course" element={<Course />} />
         <Route path="/createService" element={<CreateService />}></Route>
         <Route path="/createCourse" element={<CreateCourse />}></Route>
         <Route path="/notifications" element={<Notifications />}></Route>
@@ -106,7 +108,9 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/pay" element={<Payment />} />
         <Route path="/paypal" element={<Paypal />} />
+        <Route path="/search" element={<Search />} />
         <Route path="editProfile" element={<EditProfile />} />
+        <Route path="/search/:searchWord" element={<Search />} />
       </Routes>
       {/* <SubCategory /> */}
       <Footer />
