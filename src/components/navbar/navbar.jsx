@@ -135,7 +135,7 @@ export default function Navbar() {
             )}
           </div>
           {user.role && (
-            <>
+            <div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 m-1 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                 <FaSearch className="mr-4 text-xl text-gray-200 hover:text-white focus:outline-none" />
 
@@ -271,8 +271,8 @@ export default function Navbar() {
                   </Transition>
                 </Menu>
               </div>
-            )}
           </div>
+            )}
         </nav>
       </div>
     </div>
