@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 function FourthCards({ title, arr }) {
   return (
     <>
-      <div className="flex justify-between m-10 ">
-        <h3 className="mx-10 text-3xl font-bold text-center text-gray-600">
+      <div className="flex justify-between m-10 gap-4 ">
+        <h3 className="mx-auto text-3xl font-bold text-center text-gray-600">
           {/* Web Development Services */}
           {title}
         </h3>
-        <button className="px-4 py-2 text-green-500 border-2 border-green-500 rounded-full font2bold mx-36 hover:bg-green-500 hover:text-white">
+        <button className="px-4 py-2 text-green-500 border-2 border-green-500 rounded-full font2bold mx-auto hover:bg-green-500 hover:text-white">
           View All
         </button>
       </div>
