@@ -432,6 +432,7 @@ export default function Navbar() {
   return (
     <div className="bg-slate-800">
       <div className="container mx-auto">
+
         <nav className="flex items-center justify-between p-3">
           <div className="flex items-center justify-between w-full sm:w-auto">
             <NavLink to="/" className="mr-6 text-2xl font-bold text-third ">
@@ -543,24 +544,20 @@ export default function Navbar() {
           </div>
 
           <div className="hidden sm:flex items-center ">
+
             {!user.role && (
-              <>
-                <NavLink
-                  to="/login"
-                  className="mr-5 text-lg font-bold text-white"
-                >
-                  login
+              <div className="flex flex-col items-center sm:flex-row md:flex-row">
+                <NavLink to="/login" className="text-lg font-bold text-white md:mr-5">
+                  Login
                 </NavLink>
-                <NavLink
-                  to="/register"
-                  className="text-lg font-bold text-white"
-                >
-                  register
+                <NavLink to="/register" className="text-lg font-bold text-white">
+                  Register
                 </NavLink>
-              </>
+              </div>
             )}
           </div>
           {user.role && (
+
             <>
               <div className="flex items-center">
                 <NavLink to="/search">
@@ -597,7 +594,7 @@ export default function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 flex flex-col w-96 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 flex flex-col py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg w-96 ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {unReadNotifications.map((notification, i) => (
                         <div
                           key={i}
@@ -611,9 +608,10 @@ export default function Navbar() {
                             alt="User Img"
                             className="w-8 h-8 rounded-full"
                           />
-                          <h3 className="ml-5 text-xs font-semibold inline">
+                          <h3 className="inline ml-5 text-xs font-semibold">
                             {notification.message}
                           </h3>
+
                           <h4 className="ml-5 text-xs text-gray-600 font-semibold inline-block">
                             {new Date(
                               notification.createdAt
@@ -623,7 +621,7 @@ export default function Navbar() {
                       ))}
                       {unReadNotifications.length === 0 && (
                         <div className="flex items-center w-full gap-2 px-4 py-2 text-sm text-gray-700">
-                          <h3 className="ml-5 text-xs font-semibold inline">
+                          <h3 className="inline ml-5 text-xs font-semibold">
                             No Unread Notifications
                           </h3>
                         </div>
@@ -650,8 +648,9 @@ export default function Navbar() {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <img
+
                         className="w-8 h-8 rounded-full "
-                        src={user.profilePhoto.url}
+              src={user.profilePhoto.url}
                         alt=""
                       />
                     </Menu.Button>
@@ -696,8 +695,8 @@ export default function Navbar() {
                   </Transition>
                 </Menu>
               </div>
-            </>
-          )}
+          </div>
+            )}
         </nav>
       </div>
     </div>

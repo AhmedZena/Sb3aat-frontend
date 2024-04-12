@@ -59,26 +59,29 @@ export default function Service() {
   //   function to post add to cart
   const addToCart = async () => {
     try {
+      const token = localStorage.getItem("token");
+      console.log(token);
       const response = await axios.post(
-        `https://sb3aat.onrender.com/api/orders`,
+        `https://sb3aat.onrender.com/api/cart`,
         {
-          serviceOrCourseId: service._id,
-          clientId: user._id,
-          //   "freelancerId": "65b41665e977b0dc489a9c81",
-          //   orderDate: "06/07/2023",
-          orderDate: new Date(),
-          deliveryDate: "07/07/2023",
-          numsOrdered: numOrdered,
-          totalPrice: service.price * numOrdered,
+          productId: service._id,
+          productType: "service", // Corrected spelling
+          quantity: numOrdered,
+        },
+        {
+          headers: {
+            Authorization: `${token}`, // Corrected the format of Authorization header
+          },
         }
       );
+      console.log(response);
       console.log(response.data);
       navigate("/cart");
     } catch (error) {
       console.error(error);
     }
   };
-
+  
   return (
     <>
       <div className="container mx-auto ">
@@ -144,7 +147,7 @@ export default function Service() {
             </div>
             <button
               className="w-1/3 px-4 py-3 mx-auto font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-              onClick={addToCart}
+              onClick={()=>{addToCart}}
             >
               Add To Cart
             </button>

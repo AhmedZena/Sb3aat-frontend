@@ -1,3 +1,4 @@
+
 // import Header from "./Header/Header";
 // import Hero from "./Hero/Hero";
 // // import About from "./About US/About Us";
@@ -122,9 +123,11 @@ function Home() {
       .get(
         "https://sb3aat.onrender.com/api/services/category/65f04379d93290b026515596"
       )
+
       .then((response) => {
         console.log(response.data);
         setArr(response.data.slice(0, 4));
+
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -136,10 +139,11 @@ function Home() {
       .get(
         "https://sb3aat.onrender.com/api/services/category/65f043dfd93290b02651559c"
       )
+
       .then((response) => {
         console.log(response.data);
         setArr1(response.data.slice(0, 4));
-      })
+     })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
@@ -157,12 +161,14 @@ function Home() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
   }, []);
 
   return (
     <>
       <Hero />
       <CustomCard />
+
       <div className="p-5 mt-10 bg-gray-100">
         <FourthCards title="Web Development Services" arr={arr} />
         <FourthCards title="Web Development Services" arr={arr1} />

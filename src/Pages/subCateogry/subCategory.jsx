@@ -55,7 +55,7 @@ export default function SubCategory() {
         <Row xs={1} md={2} lg={4} className="m-4 g-4">
           {subCategories.map((subCategory, index) => (
             <Col key={index}>
-              <Card className="h-100 d-flex flex-column">
+              <Card className="h-100 d-flex flex-column hover:scale-105 hover:cursor-pointer">
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <Card.Img
                     variant="top"
