@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaInfoCircle } from "react-icons/fa";
+
+
+import { ToastContainer, toast } from "react-toastify";
+
 import {
   Box,
   Chip,
@@ -77,7 +81,9 @@ export function CreateCourse() {
   const handleChange = (event) => {
     if (event.target.value.length <= 5) {
       setPersonName(event.target.value);
+      
     }
+    toast.success("Course Added Successfully");
   };
   
   useEffect(() => {

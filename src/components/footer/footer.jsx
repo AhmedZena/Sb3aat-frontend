@@ -199,3 +199,111 @@ export default function Footer() {
   );
 }
 
+
+
+
+
+
+
+
+
+
+
+// import React from "react";
+
+// export default function Footer() {
+//   return (
+//     <footer className="bg-[#1E293B] text-white text-center dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
+//       {/* Top section of the footer */}
+//       <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between border-b-2 border-neutral-200 p-6 dark:border-neutral-500">
+//         <div className="mb-6 lg:mb-0 lg:mr-12 text-center lg:text-left">
+//           <span className="hidden lg:inline-block">
+//             Get connected with us on social networks:
+//           </span>
+//         </div>
+//         <div className="flex justify-center lg:justify-start">
+//           {/* Social media icons */}
+//           <a className="mr-6 text-white dark:text-neutral-200">
+//             {/* Icon SVG */}
+//           </a>
+//           <a className="mr-6 text-white dark:text-neutral-200">
+//             {/* Icon SVG */}
+//           </a>
+//           <a className="mr-6 text-white dark:text-neutral-200">
+//             {/* Icon SVG */}
+//           </a>
+//           <a className="text-white dark:text-neutral-200">
+//             {/* Icon SVG */}
+//           </a>
+//         </div>
+//       </div>
+
+//       {/* Bottom section of the footer */}
+//       <div className="mx-6 py-10 text-center md:text-left">
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+//           {/* TW Elements section */}
+//           <div>
+//             {/* Heading */}
+//             <h6 className="mb-4 font-semibold uppercase">
+//               TW Elements
+//             </h6>
+//             {/* Content */}
+//             <p>
+//               Here you can use rows and columns to organize your footer content.
+//               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+//             </p>
+//           </div>
+//           {/* Products section */}
+//           <div>
+//             {/* Heading */}
+//             <h6 className="mb-4 font-semibold uppercase">
+//               Products
+//             </h6>
+//             {/* Product links */}
+//             <p className="mb-4">
+//               <a className="text-white dark:text-neutral-200">Angular</a>
+//             </p>
+//             {/* Other product links */}
+//           </div>
+//           {/* Useful links section */}
+//           <div>
+//             {/* Heading */}
+//             <h6 className="mb-4 font-semibold uppercase">
+//               Useful links
+//             </h6>
+//             {/* Useful links */}
+//             <p className="mb-4">
+//               <a className="text-white dark:text-neutral-200">Pricing</a>
+//             </p>
+//             {/* Other useful links */}
+//           </div>
+//           {/* Contact section */}
+//           <div>
+//             {/* Heading */}
+//             <h6 className="mb-4 font-semibold uppercase">
+//               Contact
+//             </h6>
+//             {/* Contact information */}
+//             <p className="mb-4">
+//               <svg className="inline-block mr-3 h-5 w-5" viewBox="0 0 24 24">
+//                 {/* Location icon SVG */}
+//               </svg>
+//               New York, NY 10012, US
+//             </p>
+//             {/* Other contact information */}
+//           </div>
+//         </div>
+//         {/* Copyright */}
+//         <div className="bg-[#1E293B] text-white text-center font-semibold dark:bg-neutral-600 dark:text-neutral-200 mt-3 mb-2">
+//           <span>© 2023 Copyright :</span>
+//           <a
+//             className="font-semibold text-neutral-400 dark:text-neutral-200"
+//             href="https://tw-elements.com/"
+//           >
+//             TW Elements
+//           </a>
+//         </div>
+//       </div>
+//     </footer>
+//   );
+// }
