@@ -79,7 +79,7 @@ function Hero() {
   return (
 
     <div className="relative h-screen bg-[url('https://khamsat.hsoubcdn.com/assets/images/hero-33cc6eb8f1a98f8aacf154a4ff4c5f76d5610553e8ba4accb6d22515a64a184a.jpg')] bg-cover bg-center">
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+      <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         <div className="text-4xl font-bold mb-7">
           The largest Arab market for buying and selling services
         </div>
@@ -98,7 +98,7 @@ function Hero() {
           />
           <Link
             to={`/search/${searchTerm}`}
-            className="absolute top-1/2 right-0 transform -translate-y-1/2 flex items-center justify-center w-14 h-14 text-lg font-semibold text-black bg-green-500 rounded-full transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+            className="absolute top-1/2 right-0 transform -translate-y-1/2 flex items-center justify-center w-14 h-14 text-lg font-semibold text-black bg-green-500 p-3 rounded-3xl transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
             onClick={handleSearch}
           >
             Search
