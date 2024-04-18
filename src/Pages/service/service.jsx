@@ -60,6 +60,12 @@ export default function Service() {
   //   function to post add to cart
   const addToCart = async () => {
     console.log("Add to cart");
+
+    if (!user.id) {
+      toast.error("Please login to add to cart");
+      navigate("/login");
+    }
+
     try {
       const token = localStorage.getItem("token");
       console.log(token);

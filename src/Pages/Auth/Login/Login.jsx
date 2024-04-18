@@ -23,7 +23,6 @@
 //     setFormData({ ...formData, [e.target.name]: e.target.value });
 //   };
 
-  
 //   const handleSignUp = async (e) => {
 //     e.preventDefault();
 //     console.log(formData);
@@ -157,16 +156,9 @@
 //   );
 // }
 
-
-
-
-
-
-
-
 import axios from "axios";
 import axiosInstance from "../../../axiousConfig/instance.js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeRole } from "../../../Store/slices/role.js";
 import { changeUser } from "../../../Store/slices/user.js";
@@ -209,6 +201,11 @@ export default function Login() {
       toast.error("Failed to login");
     }
   };
+
+  useEffect(() => {
+    // scroll to top
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row">
@@ -310,8 +307,3 @@ export default function Login() {
     </div>
   );
 }
-
-
-
-
-

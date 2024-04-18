@@ -223,7 +223,7 @@ export default function Cart() {
           </table>
         </div>
         <div className="flex flex-col md:flex-row justify-around mt-6">
-          <Paypal totalPrice={initialTotalPrices} />
+          <Paypal totalPrice={initialTotalPrices} cartId={orders[0]?._id} />
           <div>
             <button
               onClick={handleDeleteAllItems}

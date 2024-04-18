@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeUser } from "../../Store/slices/user";
 import axios from "axios";
-
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 export default function EditProfile() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
@@ -25,18 +27,22 @@ export default function EditProfile() {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:8800/api/auth/editUser/${user._id}`,
+        // `http://localhost:8800/api/auth/editUser/${user._id}`,
+        `https://sb3aat.onrender.com/api/auth/editUser/${user._id}`,
         {
           ...formData,
         }
       );
 
       dispatch(changeUser(response.data)); // Assuming the server returns the updated user data
-      alert("User updated successfully!");
+      //   alert("User updated successfully!");
+      toast.success("User updated successfully!");
+      navigate("/profile");
     } catch (error) {
-      console.error("Error updating user:", error);
+      //   console.error("Error updating user:", error);
+      toast.error("Error updating user:", error);
     }
-    alert("User updated successfully!");
+    // alert("User updated successfully!");
     console.log(formData);
   };
 
