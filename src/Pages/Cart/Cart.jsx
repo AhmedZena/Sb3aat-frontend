@@ -196,10 +196,12 @@ export default function Cart() {
                   <td className="px-4 py-2">
                     <select
                       value={cart.quantity}
-                      onChange={(e) => handleNumOrderedChange(e.target.value, cart)}
+                      onChange={(e) =>
+                        handleNumOrderedChange(e.target.value, cart)
+                      }
                       className="px-2 py-1 border border-gray-300 rounded-md bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
-                      {[1, 2, 3, 4, 5, 6, 7, 8].map((value) => (
+                      {[1, 2, 3, 4].map((value) => (
                         <option key={value} value={value}>
                           {value}
                         </option>
@@ -221,14 +223,14 @@ export default function Cart() {
           </table>
         </div>
         <div className="flex flex-col md:flex-row justify-around mt-6">
-           <Paypal totalPrice={initialTotalPrices} />
+          <Paypal totalPrice={initialTotalPrices} />
           <div>
-          <button
-            onClick={handleDeleteAllItems}
-            className="px-4 py-2 mt-4 text-white transition duration-300 bg-red-500 rounded-md hover:bg-red-600"
-          >
-            Delete all Items
-          </button>
+            <button
+              onClick={handleDeleteAllItems}
+              className="px-4 py-2 mt-4 text-white transition duration-300 bg-red-500 rounded-md hover:bg-red-600"
+            >
+              Delete all Items
+            </button>
           </div>
           <span className="font-semibold mt-4 md:mt-0">
             Total Price: {initialTotalPrices}$
@@ -238,7 +240,6 @@ export default function Cart() {
     </div>
   );
 }
-
 
 // import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
@@ -472,7 +473,7 @@ export default function Cart() {
 //                   </td>
 //                 </tr>
 //               ))}
-              
+
 //           </tbody>
 //         </table>
 //         <div className="flex justify-around mt-6">
@@ -480,7 +481,7 @@ export default function Cart() {
 //             to="/pay"
 //             className="px-2 py-2 ml-10 text-white transition duration-300 bg-green-500 rounded-md hover:bg-green-600"
 //           >
-//             Pay Now 
+//             Pay Now
 //           </Link>
 //           <Link
 //             to="/cart"

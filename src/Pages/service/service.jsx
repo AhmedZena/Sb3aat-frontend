@@ -17,6 +17,7 @@ import { IoTimeOutline } from "react-icons/io5";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function Service() {
   const [service, setService] = useState({});
   const [owner, setOwner] = useState({});
@@ -77,6 +78,7 @@ export default function Service() {
       );
       console.log(response);
       console.log(response.data);
+      toast.success("Service added to cart successfully");
       navigate("/cart");
     } catch (error) {
       console.error(error);
