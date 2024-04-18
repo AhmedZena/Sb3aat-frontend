@@ -58,6 +58,7 @@ export default function Service() {
 
   //   function to post add to cart
   const addToCart = async () => {
+    console.log("Add to cart");
     try {
       const token = localStorage.getItem("token");
       console.log(token);
@@ -81,14 +82,17 @@ export default function Service() {
       console.error(error);
     }
   };
-  
+
   return (
     <>
       <div className="container mx-auto ">
         <div className="flex items-center justify-between">
           <h2 className="m-5 text-3xl">{service.title}</h2>
           <div className="flex items-center">
-            <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+            <button
+              className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+              onClick={addToCart}
+            >
               Add To Cart
             </button>
             <Link to={`/message/${service.freelancerId}`}>
@@ -147,7 +151,7 @@ export default function Service() {
             </div>
             <button
               className="w-1/3 px-4 py-3 mx-auto font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-              onClick={()=>{addToCart}}
+              onClick={addToCart}
             >
               Add To Cart
             </button>
