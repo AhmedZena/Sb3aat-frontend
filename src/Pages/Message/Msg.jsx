@@ -7,7 +7,6 @@ const ConversationsList = () => {
   const [conversations, setConversations] = useState([]);
   const { user } = useSelector((state) => state.user);
   const [userIdAvailable, setUserIdAvailable] = useState(false);
-  const [otherMemberIds, setOtherMemberIds] = useState([]);
 
   useEffect(() => {
     if (user._id) {
@@ -18,51 +17,35 @@ const ConversationsList = () => {
   useEffect(() => {
     const fetchConversations = async () => {
       try {
-        const response = await axios.get(
-          `https://sb3aat.onrender.com/api/conversations/${user._id}`
-        );
-        // Filter out conversations where the user is a member
-        const filteredConversations = response.data.filter((conversation) =>
-          conversation.members.includes(user._id)
-        );
-        setConversations(filteredConversations);
-
-        // Fetch member data for all conversations concurrently
-        const memberDataRequests = filteredConversations.map(
-          async (conversation) => {
-            // Find the member ID that is not the current user's ID
-            const otherMemberId = conversation.members.find(
-              (memberId) => memberId !== user._id
-            );
-            setOtherMemberIds((prevState) => [...prevState, otherMemberId]);
-            // Fetch member data using the other member's ID
-            const memberDataResponse = await axios.get(
-              `https://sb3aat.onrender.com/api/auth/getUserById/${otherMemberId}`
-            );
-            return memberDataResponse.data;
-          }
-        );
-        await Promise.all(memberDataRequests);
+        if (userIdAvailable) {
+          const response = await axios.get(
+            `https://sb3aat.onrender.com/api/conversations/${user._id}`
+          );
+          // Filter out conversations where the user is a member
+          const filteredConversations = response.data.filter((conversation) =>
+            conversation.members.includes(user._id) && conversation.messages.length > 0
+          );
+          setConversations(filteredConversations);
+          console.log(filteredConversations);
+        }
       } catch (error) {
         console.error("Error fetching conversations:", error);
       }
     };
 
-    if (userIdAvailable) {
-      fetchConversations();
-    }
+    fetchConversations();
   }, [userIdAvailable, user._id]);
 
   return (
     <div className="container mx-auto mb-20">
       <h2 className="my-5 mb-10 text-3xl font-bold text-center">Conversations</h2>
       <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {conversations.map((conversation, index) => (
+        {conversations.map((conversation) => (
           <li
-            key={conversation._id || index}
+            key={conversation._id}
             className="p-6 border rounded-lg shadow-md"
           >
-            <FetchMemberData memberId={otherMemberIds[index]} />
+            <ConversationItem conversation={conversation} user={user} />
           </li>
         ))}
       </ul>
@@ -70,42 +53,45 @@ const ConversationsList = () => {
   );
 };
 
-const FetchMemberData = ({ memberId }) => {
-  const [memberData, setMemberData] = useState(null);
+const ConversationItem = ({ conversation, user }) => {
+  const [otherMemberData, setOtherMemberData] = useState(null);
 
   useEffect(() => {
-    const fetchMember = async () => {
+    const fetchOtherMemberData = async () => {
       try {
-        const response = await axios.get(
-          `https://sb3aat.onrender.com/api/auth/getUserById/${memberId}`
+        // Find the member ID that is not the current user's ID
+        const otherMemberId = conversation.members.find(
+          (memberId) => memberId !== user._id
         );
-        setMemberData(response.data);
-        console.log("Member data fetched " + response.data._id);
+        const response = await axios.get(
+          `https://sb3aat.onrender.com/api/auth/getUserById/${otherMemberId}`
+        );
+        setOtherMemberData(response.data);
       } catch (error) {
         console.error("Error fetching member data:", error);
       }
     };
 
-    if (memberId) {
-      fetchMember();
-    }
-  }, [memberId]);
+    fetchOtherMemberData();
+  }, [conversation.members, user._id]);
 
   return (
     <div className="flex flex-col items-center justify-center text-center">
-      {memberData ? (
+      {otherMemberData ? (
         <>
           <div className="mb-4">
             <img
-              src={memberData.profilePhoto.url}
+              src={otherMemberData.profilePhoto.url}
               alt="Profile"
               className="w-16 h-16 rounded-full"
             />
           </div>
           <div>
-            <h4 className="mb-3 text-xl font-semibold">{memberData.username}</h4>
+            <h4 className="mb-3 text-xl font-semibold">
+              {otherMemberData.username}
+            </h4>
             <Link
-              to={`/message/${memberData._id}`}
+              to={`/message/${otherMemberData._id}`}
               className="block text-blue-500 hover:text-green-700"
             >
               <button className="px-4 py-2 font-bold text-green-500 border-2 border-green-500 rounded hover:bg-green-500 hover:text-white">

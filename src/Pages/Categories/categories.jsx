@@ -20,12 +20,12 @@ function Categories() {
 
   return (
     <div className="flex flex-wrap p-5 mb-5 bg-zinc-300">
-      <h1 className="p-2 mx-5 text-4xl font-bold text-black ring-white ring rounded-xl">
+      <h1 className="p-2 mx-auto text-4xl font-bold text-black underline uppercase">
         categories
       </h1>
       <Row xs={1} md={2} lg={4} className="m-4 g-4">
         {categories.map((category, index) => (
-          <Col key={index}>
+          <Col key={index} className="ease-in-out hover:scale-110 hover:shadow-2xl">
             <Link
               to={`/subCategories/${category._id}`}
               className="text-decoration-none"

@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 
 export default function SubCategory() {
   const [subCategories, setSubCategories] = useState([]);
+  const [category, setCategory] = useState({});
   const { categoryId } = useParams();
 
   useEffect(() => {
@@ -28,28 +29,26 @@ export default function SubCategory() {
         console.log(error);
       });
   }, [categoryId]);
+  useEffect (() => {
+    axios.get(  `https://sb3aat.onrender.com/api/categories/${categoryId}`).then((response) => {
+      setCategory(response.data.category)
+      console.log(response.data.category)
+    })
+  },[])
 
   return (
     <>
-      <div className="container text-center text-black contents bg-zinc-900">
-        <h1 className="mt-5 mb-12">Sub Category</h1>
-      </div>
+   
 
       <div className="items-center content-center text-center">
-        <h1 className="mt-4 text-4xl">Sub Category Name</h1>
-        <h3 className="mt-3 text-xl text-gray-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, porro?
+        <h1 className="mt-4 text-4xl">{ category.Name}</h1>
+        <h3 className="mt-3 mb-10 text-3xl text-gray-400 ">
+         {category.Description}
         </h3>
-        <Button
-          variant="contained"
-          color="success"
-          className="mt-3 mb-5 bg-green-600 hover:bg-green-500"
-        >
-          How 7 Works
-        </Button>
+  
       </div>
       <div className="p-5 mb-5 bg-zinc-300">
-        <h1 className="text-3xl font-bold text-center text-green-500 ">
+        <h1 className="text-3xl font-bold text-center text-green-700 uppercase ">
           Sub Categories
         </h1>
         <Row xs={1} md={2} lg={4} className="m-4 g-4">
@@ -62,16 +61,16 @@ export default function SubCategory() {
                     src={subCategory.subCatImgSrc}
                     className="w-full h-52"
                   />
-                  <Card.Title>{subCategory.name}</Card.Title>
-                  <Card.Text>{subCategory.description}</Card.Text>
-                  <div className="flex gap-3">
+                  <Card.Title className="mx-auto mt-10 mb-3 font-bold">{subCategory.name}</Card.Title>
+                  <Card.Text className="mb-3">{subCategory.description}</Card.Text>
+                  <div className="flex gap-3 mx-auto">
                     <Link to={`/courses/${subCategory._id}`}>
-                      <Button variant="outline-success" className="mt-3">
+                      <Button variant="outline-success" className="mt-3 mb-3 font-bold text-white bg-green-900">
                         Courses
                       </Button>
                     </Link>
                     <Link to={`/services/${subCategory._id}`}>
-                      <Button variant="outline-success" className="mt-3">
+                      <Button variant="outline-success" className="mt-3 font-bold text-white bg-green-900">
                         Services
                       </Button>
                     </Link>

@@ -62,7 +62,7 @@ const Message = () => {
 
   return (
     <div className="flex w-full h-screen bg-gray-100">
-      <div className="w-[150px] h-full bg-gray-200">
+      <div className="w-[250px] h-full bg-gray-200">
         <div className="p-4">
           <Link
             to={`/messages/${senderId}`}
@@ -85,7 +85,10 @@ const Message = () => {
                 .map((message, index) => (
                   <div
                     key={index}
-                    className={`flex mb-2 ${message.sender === senderId ? "justify-end text-green-600 font-bold " : "justify-start"
+                    className={`flex mb-2 ${
+                      message.sender === senderId
+                        ? "justify-end text-green-600 font-bold "
+                        : "justify-start"
                     }`}
                   >
                     <div className="p-2 bg-white rounded-md shadow-md">

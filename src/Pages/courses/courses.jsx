@@ -75,22 +75,15 @@ export default function Courses() {
       <div className="container mx-auto mt-5">
         <div className="text-white bg-gray-900">
           <div className="container h-[300px] mx-auto">
-            <h1 className="p-10 text-6xl font-bold">My Learning</h1>
-            <div className="pb-3 mx-5 mt-28">
-              <h2
-                to="/courses"
-                className="mr-5 text-2xl font-bold text-white border-b-2 border-b-orange-400"
-              >
-                All Courses
-              </h2>
-            </div>
+            <h1 className="p-10 mx-auto text-6xl font-bold border-b-4 border-b-orange-400">Courses</h1>
+            
           </div>
         </div>
 
         <Row xs={1} md={2} lg={3} className="mt-16 g-4">
           {filteredCourses.map((course) => (
             <Col key={course._id}>
-              <Card className="p-4 pb-5 bg-white border-none shadow-xl max-w-120 max-h-120">
+              <Card className="p-3 pb-4 bg-white border-none shadow-xl max-w-100 max-h-100">
                 <Card.Img
                   variant="top"
                   src={course.CourseImg}
