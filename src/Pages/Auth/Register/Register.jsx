@@ -100,9 +100,7 @@ const Register = () => {
               Sign up
             </button>
 
-            <button className="w-full text-white my-2 font-semibold bg-[#DD4B39] rounded-md p-4 text-center flex items-center justify-center cursor-pointer">
-              Sign up with Google
-            </button>
+           
           </div>
         </div>
 
