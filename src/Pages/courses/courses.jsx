@@ -128,7 +128,7 @@ export default function Courses() {
                     max="100"
                     className="w-full mt-3 "
                   ></meter>
-                  <div className="mt-3 text-xl text-center bg-green-500 rounded-3xl hover:text-white hover:scale-110 ">
+                  <div className="mt-3 w-[250px] p-2 text-white font-bold mx-auto ease-out transition text-xl text-center bg-green-700 rounded-3xl hover:text-white hover:scale-110 ">
                     <Link to={`/course/${course._id}`}>Start Course</Link>
                   </div>{" "}
                 </Card.Body>

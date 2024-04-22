@@ -25,7 +25,7 @@ function Categories() {
       </h1>
       <Row xs={1} md={2} lg={4} className="m-4 g-4">
         {categories.map((category, index) => (
-          <Col key={index} className="ease-in-out hover:scale-110 hover:shadow-2xl">
+          <Col key={index} className="transition ease-out hover:scale-105 hover:shadow-2xl">
             <Link
               to={`/subCategories/${category._id}`}
               className="text-decoration-none"

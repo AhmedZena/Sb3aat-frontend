@@ -107,7 +107,7 @@ export default function Services() {
                     <div className="flex items-center">
                       <span className="text-xl text-yellow-500"> ({service.price}$)</span>
                     </div>
-                    <div className="mt-3 text-xl text-center bg-green-500 rounded-3xl hover:text-white hover:scale-110 ">
+                    <div className="mt-3 w-[250px] p-2 text-white font-bold mx-auto ease-out transition text-xl text-center bg-green-700 rounded-3xl hover:text-white hover:scale-110 ">
                       <Link to={`/service/${service._id}`}>View Service</Link>
                     </div>{" "}
                   </Card.Body>

@@ -89,14 +89,14 @@ function Hero() {
         <div className="relative max-w-md mx-auto">
           <input
             type="search"
-            className="w-full p-3 pr-10 text-lg rounded-full focus:outline-none"
+            className="w-full p-3 pr-10 text-lg rounded-xl focus:outline-none"
             placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Link
             to={`/search/${searchTerm}`}
-            className="absolute right-0 flex items-center justify-center text-lg font-semibold text-black transition duration-150 ease-in-out transform -translate-y-1/2 bg-green-500 rounded-3xl top-1/2 w-14 h-14 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+            className="absolute top-0 right-0 flex items-center p-3 font-bold text-center text-white bg-green-700 rounded-lg"
             onClick={handleSearch}
           >
             Search
