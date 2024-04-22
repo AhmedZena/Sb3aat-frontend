@@ -84,7 +84,7 @@ export default function Service() {
       console.log(response);
       console.log(response.data);
       toast.success("Service added to cart successfully");
-      navigate("/cart");
+    
     } catch (error) {
       console.error(error);
     }
