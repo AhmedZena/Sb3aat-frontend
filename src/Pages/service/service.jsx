@@ -61,14 +61,13 @@ export default function Service() {
   const addToCart = async () => {
     console.log("Add to cart");
 
-    if (!user.id) {
-      toast.error("Please login to add to cart");
-      navigate("/login");
-    }
-
     try {
       const token = localStorage.getItem("token");
       console.log(token);
+      if (!token) {
+        toast.error("Please login to add to cart");
+        navigate("/login");
+      }
       const response = await axios.post(
         `https://sb3aat.onrender.com/api/cart`,
         {
