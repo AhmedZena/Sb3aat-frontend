@@ -6,6 +6,7 @@ import Paypal from "../Payment/Paypal";
 
 export default function Cart() {
   const [orders, setOrders] = useState([]);
+  const [cartId, setCartId] = useState("");
   const [initialTotalPrices, setInitialTotalPrices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,6 +30,7 @@ export default function Cart() {
         console.log(response);
         if (response.data) {
           setOrders(response.data.cartItems);
+          setCartId(response.data.cartId);
           setInitialTotalPrices(response.data.totalCartPrice);
           console.log(response.data);
         }
@@ -99,9 +101,10 @@ export default function Cart() {
       );
       console.log(response);
       if (response.data) {
-        setOrders(response.data.cartItems);
-        setInitialTotalPrices(response.data.totalCartPrice);
-        console.log(response.data);
+        window.location.reload();
+        // setOrders(response.data.cartItems);
+        // setInitialTotalPrices(response.data.totalCartPrice);
+        // console.log(response.data);
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -223,7 +226,8 @@ export default function Cart() {
           </table>
         </div>
         <div className="flex flex-col md:flex-row justify-around mt-6">
-          <Paypal totalPrice={initialTotalPrices} cartId={orders[0]?._id} />
+          <Paypal totalPrice={initialTotalPrices} cartId = {cartId} />
+             {console.log(cartId)}
           <div>
             <button
               onClick={handleDeleteAllItems}
