@@ -17,11 +17,14 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 export default function () {
   const [course, setCourse] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   
   useEffect(() => {
@@ -35,6 +38,39 @@ export default function () {
         console.log(error);
       });
   }, [id]);
+
+    //   function to post add to cart
+    const addToCart = async () => {
+      console.log("Add to cart");
+  
+      try {
+        const token = localStorage.getItem("token");
+        console.log(token);
+        if (!token) {
+          toast.error("Please login to add to cart");
+          navigate("/login");
+        }
+        const response = await axios.post(
+          `https://sb3aat.onrender.com/api/cart`,
+          {
+            productId: course._id,
+            productType: "course", // Corrected spelling
+          },
+          {
+            headers: {
+              Authorization: `${token}`, // Corrected the format of Authorization header
+            },
+          }
+        );
+        console.log(response);
+        console.log(response.data);
+        toast.success("Course added to cart successfully");
+        navigate("/cart");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
   return (
     <>
       <div className="w-full h-96 bg-[#2D2F31] relative ">
@@ -141,8 +177,8 @@ export default function () {
               left at this price!
             </p>
             <div className="items-center">
-              <a
-                href="#"
+              <button
+                onClick={addToCart}
                 className="inline-flex items-center px-3 py-2 m-4 text-lg font-medium text-center text-white bg-[#8710D8] rounded-lg hover:bg-[#b775e4]  "
               >
                 Add to cart
@@ -161,7 +197,7 @@ export default function () {
                     d="M1 5h12m0 0L9 1m4 4L9 9"
                   />
                 </svg>
-              </a>
+              </button>
             </div>
             <p>30-Day Money-Back Guarantee</p>
             <div>
